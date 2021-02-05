@@ -8,7 +8,8 @@ export const AuthContext = createContext({
     userId: null,
     token: null,
     register: () => {},
-    login: () => {}
+    login: () => {},
+    logout: () => {}
 })
 
 const AuthProvider = ({children}) => {
@@ -26,8 +27,14 @@ const AuthProvider = ({children}) => {
         setLoading(false)
     }
 
+    const logout = () => {
+        setToken(null)
+        setLogged(false)
+        setUserId(null)
+    }
+
     return (
-        <AuthContext.Provider value={{userId, logged, loading, token, register}}>
+        <AuthContext.Provider value={{userId, logged, loading, token, register, logout}}>
             {children}
         </AuthContext.Provider>
     )
