@@ -1,5 +1,6 @@
 import {Route, Switch, BrowserRouter} from 'react-router-dom'
-import RegisterPage from '../pages/register'
+import RegisterPage from '../pages/register-page'
+import ListPage from '../pages/list-page'
 import AuthProvider from "../contexts/auth-context";
 
 const App = () => (
@@ -7,6 +8,7 @@ const App = () => (
         <AuthProvider>
             <Switch>
                 <Route path="/register" component={RegisterPage} />
+                <Route path="/lists" component={ListPage} />
             </Switch>
         </AuthProvider>
     </BrowserRouter>
