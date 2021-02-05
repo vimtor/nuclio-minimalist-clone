@@ -1,9 +1,9 @@
 import {useState} from 'react'
 import Input from "../components/input/input";
-import {register} from "../helpers/auth";
+import useAuth from "../hooks/use-auth";
 
 const RegisterPage = () => {
-    const [loading, setLoading] = useState(false)
+    const {register, loading} = useAuth()
     const [error, setError] = useState('')
 
     const handleSubmit = async (event) => {
@@ -19,15 +19,12 @@ const RegisterPage = () => {
             setError('Passwords do not match')
         }
         else {
-            setLoading(true)
             try {
-                const {data} = await register({email, password})
-                console.log(data.token)
+                await register({email, password})
             }
             catch (error) {
-                setError(error)
+                setError('Something went wrong')
             }
-            setLoading(false)
         }
     }
 
