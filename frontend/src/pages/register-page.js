@@ -1,8 +1,10 @@
 import {useState} from 'react'
 import Input from "../components/input/input";
 import useAuth from "../hooks/use-auth";
+import {useHistory} from "react-router-dom";
 
 const RegisterPage = () => {
+    const history = useHistory()
     const {register, loading} = useAuth()
     const [error, setError] = useState('')
 
@@ -21,6 +23,7 @@ const RegisterPage = () => {
         else {
             try {
                 await register({email, password})
+                history.push("/lists")
             }
             catch (error) {
                 setError('Something went wrong')
