@@ -1,0 +1,9 @@
+.list-page-layout {
+    display: flex;
+}
+
+.list-page-content {
+    width: 100%;
+    background-color: lightgray;
+    height: 100vh;
+}

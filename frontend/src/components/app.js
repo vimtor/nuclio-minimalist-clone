@@ -1,6 +1,6 @@
 import {Route, Switch, BrowserRouter} from 'react-router-dom'
 import RegisterPage from '../pages/register-page'
-import ListPage from '../pages/list-page'
+import ListPage from '../pages/list-page/list-page'
 import AuthProvider from "../contexts/auth-context";
 
 const App = () => (
