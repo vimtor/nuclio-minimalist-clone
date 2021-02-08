@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
     await list.save()
 
     const token = await createToken({ id: user._id }, process.env.JWT_SECRET)
-    res.json({ message: 'Register successfully', data: { token }  })
+    res.json({token})
 })
 
 router.post('/login', async (req, res) => {
@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
     }
     else {
         const token = await createToken({id: user._id}, process.env.JWT_SECRET)
-        res.json({ message: 'Login successfully', data: { token }  })
+        res.json({token})
     }
 })
 

@@ -1,8 +1,6 @@
-import {createContext, useReducer, useState} from 'react'
-import ky from "ky";
+import {createContext, useReducer} from 'react'
 import {getUserIdFromToken} from "../helpers/token";
-
-const api = 'http://localhost:3001'
+import api from '../helpers/api'
 
 export const AuthContext = createContext({
     loading: false,
@@ -18,7 +16,6 @@ const token = localStorage.getItem("token");
 
 const initialState = {
     loading: false,
-    token: token || null,
     logged: token !== null,
     userId: token ? getUserIdFromToken(token) : null,
 }
@@ -32,7 +29,6 @@ const reducer = (state, action) => {
           }
       case 'login':
           return {
-              token: action.token,
               userId: getUserIdFromToken(action.token),
               logged: true,
               loading: false
@@ -47,16 +43,16 @@ const AuthProvider = ({children}) => {
 
     const register = async ({email, password}) => {
         dispatch({type: 'loading'})
-        const {data} = await ky.post(`${api}/register`, {json: {email, password}}).json()
-        dispatch({type: 'login', token: data.token})
-        localStorage.setItem('token', data.token)
+        const token = await api.register({email, password})
+        dispatch({type: 'login', token })
+        localStorage.setItem('token', token)
     }
 
     const login = async ({email, password}) => {
         dispatch({type: 'loading'})
-        const {data} = await ky.post(`${api}/login`, {json: {email, password}}).json()
-        dispatch({type: 'login', token: data.token})
-        localStorage.setItem('token', data.token)
+        const token = await api.login({email, password})
+        dispatch({type: 'login', token })
+        localStorage.setItem('token', token)
     }
 
     const logout = () => {
