@@ -1,5 +1,6 @@
 import {createContext, useState} from 'react'
 import ky from "ky";
+import {getUserIdFromToken} from "../helpers/token";
 
 const api = 'http://localhost:3001'
 
@@ -15,17 +16,17 @@ export const AuthContext = createContext({
 const AuthProvider = ({children}) => {
     const [token, setToken] = useState(localStorage.getItem("token") || null)
     const [logged, setLogged] = useState(token !== null)
-    const [userId, setUserId] = useState(token ? JSON.parse(atob(token.split(".")[1])).id : null)
+    const [userId, setUserId] = useState(token ? getUserIdFromToken(token) : null)
     const [loading, setLoading] = useState(false)
 
     const register = async ({email, password}) => {
         setLoading(true)
         const {data} = await ky.post(`${api}/register`, {json: {email, password}}).json()
-        setUserId(data.user._id)
+        setUserId(getUserIdFromToken(data.token))
         setToken(data.token)
-        localStorage.setItem('token', data.token)
         setLogged(true)
         setLoading(false)
+        localStorage.setItem('token', data.token)
     }
 
     const logout = () => {
