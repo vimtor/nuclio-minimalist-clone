@@ -13,16 +13,17 @@ export const AuthContext = createContext({
 })
 
 const AuthProvider = ({children}) => {
-    const [userId, setUserId] = useState(null)
-    const [logged, setLogged] = useState(false)
+    const [token, setToken] = useState(localStorage.getItem("token") || null)
+    const [logged, setLogged] = useState(token !== null)
+    const [userId, setUserId] = useState(token ? JSON.parse(atob(token.split(".")[1])).id : null)
     const [loading, setLoading] = useState(false)
-    const [token, setToken] = useState(null)
 
     const register = async ({email, password}) => {
         setLoading(true)
         const {data} = await ky.post(`${api}/register`, {json: {email, password}}).json()
         setUserId(data.user._id)
         setToken(data.token)
+        localStorage.setItem('token', data.token)
         setLogged(true)
         setLoading(false)
     }

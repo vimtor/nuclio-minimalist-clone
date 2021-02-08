@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
     await list.save()
 
     const token = await createToken({ id: user._id }, 'hector')
-    res.json({ message: 'Register successfully', data: { token, user }  })
+    res.json({ message: 'Register successfully', data: { token }  })
 })
 
 router.post('/login', async (req, res) => {
