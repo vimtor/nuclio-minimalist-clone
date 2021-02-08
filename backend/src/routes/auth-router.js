@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
     await user.save()
     await list.save()
 
-    const token = await createToken({ id: user._id }, 'hector')
+    const token = await createToken({ id: user._id }, process.env.JWT_SECRET)
     res.json({ message: 'Register successfully', data: { token }  })
 })
 
@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
         res.status(401).json({ message: 'Invalid credentials' })
     }
     else {
-        const token = await createToken({id: user._id}, 'hector')
+        const token = await createToken({id: user._id}, process.env.JWT_SECRET)
         res.json({ message: 'Login successfully', data: { token }  })
     }
 })

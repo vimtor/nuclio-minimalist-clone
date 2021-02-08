@@ -7,7 +7,7 @@ const router = Router()
 router.use(protect)
 
 router.get('/lists', async (req, res) => {
-   const lists = await List.find({ owners: { $in: [req.body.user._id]}})
+    const lists = await List.find({ owners: { $in: [req.userId]}})
     res.json(lists)
 })
 
