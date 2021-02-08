@@ -1,11 +1,11 @@
 import Sidebar from "../../components/sidebar/sidebar";
-import './list-page.css'
+import styles from './list-page.module.css'
 
 const ListPage = () => {
   return (
-      <main className="list-page-layout">
+      <main className={styles.container}>
         <Sidebar />
-        <section className="list-page-content">
+        <section className={styles.content}>
         </section>
       </main>
   )
