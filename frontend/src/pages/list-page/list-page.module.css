@@ -4,6 +4,6 @@
 
 .content {
     width: 100%;
-    background-color: lightgray;
+    background-color: var(--color-gray);
     height: 100vh;
 }

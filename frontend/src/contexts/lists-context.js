@@ -12,7 +12,7 @@ export const ListsContext = createContext({
     },
     createList: () => {
     },
-    updateListTitle: () => {
+    updateList: () => {
     },
     // TODO: Implement sharing
     shareList: () => {
@@ -21,12 +21,12 @@ export const ListsContext = createContext({
 
 const ListsProvider = ({children}) => {
     const [lists, setLists] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [activeId, setActiveList] = useState(null)
 
     useEffect(() => {
         api.fetchLists().then((data) => {
-            setLoading(true)
+            setLoading(false)
             setLists(data)
             setActiveList(data[0]._id)
         })
@@ -44,13 +44,13 @@ const ListsProvider = ({children}) => {
         setActiveList(newLists[0]._id)
     }
 
-    const updateListTitle = async (title) => {
-        await api.updateList({title})
+    const updateList = async (id, body) => {
+        await api.updateList(id, body)
         setLists(lists.map(list => {
-            if (list.title === title) {
+            if (list._id === id) {
                 return {
                     ...list,
-                    title,
+                    ...body,
                 }
             }
             return list
@@ -58,7 +58,7 @@ const ListsProvider = ({children}) => {
     }
 
     return (
-        <ListsContext.Provider value={{loading, lists, activeId, setActiveList, createList, removeList, updateListTitle}}>
+        <ListsContext.Provider value={{loading, lists, activeId, setActiveList, createList, removeList, updateList}}>
             {children}
         </ListsContext.Provider>
     )

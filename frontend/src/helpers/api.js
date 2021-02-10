@@ -20,6 +20,11 @@ const fetchLists = async () => {
     return data
 }
 
+const fetchOneList = async (id) => {
+    const {data} = await api.get(`/lists/${id}`)
+    return data
+}
+
 const createList = async (body = {}) => {
     const {data} = await api.post('/lists', body)
     return data;
@@ -32,6 +37,11 @@ const removeList = async (id) => {
 const updateList = async (id, body = {}) => {
     const {data} = await api.put(`/lists/${id}`, body)
     return data;
+}
+
+const createTask = async (listId, title) => {
+    const {data} = await api.post(`/lists/${listId}/tasks`, { title })
+    return data
 }
 
 const register = async ({email, password}) => {
@@ -50,7 +60,9 @@ export default {
     login,
     createList,
     removeList,
-    updateList
+    updateList,
+    createTask,
+    fetchOneList,
 }
 
 
