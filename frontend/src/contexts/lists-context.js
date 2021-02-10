@@ -26,6 +26,7 @@ const ListsProvider = ({children}) => {
 
     useEffect(() => {
         api.fetchLists().then((data) => {
+            console.log(data)
             setLoading(false)
             setLists(data)
             setActiveList(data[0]._id)

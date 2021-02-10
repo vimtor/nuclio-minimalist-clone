@@ -44,6 +44,15 @@ const createTask = async (listId, title) => {
     return data
 }
 
+const removeTask = async (listId, taskId) => {
+    await api.delete(`/lists/${listId}/tasks/${taskId}`)
+}
+
+const updateTask = async (listId, taskId, body) => {
+    const {data} = await api.put(`/lists/${listId}/tasks/${taskId}`, body)
+    return data
+}
+
 const register = async ({email, password}) => {
     const {data} = await api.post('/register', {email, password})
     return data.token;
@@ -63,6 +72,8 @@ export default {
     updateList,
     createTask,
     fetchOneList,
+    updateTask,
+    removeTask,
 }
 
 

@@ -1,36 +1,12 @@
-import {useState, useEffect} from 'react'
-import useLists from "./use-lists";
-import api from "../helpers/api";
+import {useContext} from 'react'
+import {ActiveListContext} from "../contexts/active-list-context";
 
 const useActiveList = () => {
-    const {loading, updateList, activeId} = useLists()
-    const [activeList, setActiveList] = useState(null)
-
-    const refreshList = async () => {
-        api.fetchOneList(activeId).then(setActiveList)
+    const context = useContext(ActiveListContext)
+    if (!context) {
+        throw Error('The hook useActiveList must be used within ActiveListProvider')
     }
-
-    useEffect(() => {
-        if (activeId) {
-            refreshList()
-        }
-    }, [activeId])
-
-    const updateTitle = (title) => {
-        updateList(activeId, {title})
-    }
-
-    const createTask = async (title) => {
-        const newList = await api.createTask(activeId, title)
-        setActiveList(newList)
-    }
-
-    return {
-        loading,
-        ...activeList,
-        updateTitle,
-        createTask,
-    }
+    return context
 }
 
 export default useActiveList

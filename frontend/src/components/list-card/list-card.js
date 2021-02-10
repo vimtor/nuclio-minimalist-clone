@@ -1,32 +1,21 @@
-import {useEffect, useState} from 'react'
 import useActiveList from "../../hooks/use-active-list";
+import styles from './list-card.module.css'
+import TaskList from "./task-list/task-list";
+import CardHeader from "./card-header/card-header";
+import CardFooter from "./card-footer/card-footer";
 
 const ListCard = () => {
-    const {loading, updateTitle, createTask, title, tasks} = useActiveList()
-
-    const [innerTitle, setInnerTitle] = useState(title)
-
-    useEffect(() => {
-      setInnerTitle(title)
-    }, [title])
+    const {loading, createTask } = useActiveList()
 
     if (loading) {
         return null;
     }
 
-    const handleTitleChange = event => {
-        updateTitle(event.target.value);
-    };
-
     return (
-        <div>
+        <div className={styles.card}>
+            <CardHeader />
             <input
-                type="text"
-                value={innerTitle}
-                onChange={e => setInnerTitle(e.target.value)}
-                onBlur={handleTitleChange}
-            />
-            <input
+                className={styles.addTask}
                 type="text"
                 placeholder="Add new task"
                 onKeyPress={(event) => {
@@ -35,12 +24,8 @@ const ListCard = () => {
                     }
                 }}
             />
-            <ul>
-                {tasks?.map(({_id, title}) => {
-                    return <li key={_id}>{title}</li>
-                })}
-            </ul>
-            <button>Clear all completed</button>
+            <TaskList />
+            <CardFooter />
         </div>
     )
 }

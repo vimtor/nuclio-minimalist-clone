@@ -57,6 +57,17 @@ router.post('/lists/:listId/tasks', async (req, res) => {
     res.status(201).json(list)
 })
 
+router.put('/lists/:listId/tasks/:taskId', async (req, res) => {
+    const listId = req.params.listId;
+    const taskId = req.params.taskId;
+
+    const list = await List.findById(listId)
+    list.tasks.id(taskId).completed = req.body.completed
+    await list.save()
+
+    res.status(201).json(list)
+})
+
 router.delete('/lists/:listId/tasks/:taskId', async (req, res) => {
     const listId = req.params.listId;
     const taskId = req.params.taskId;
