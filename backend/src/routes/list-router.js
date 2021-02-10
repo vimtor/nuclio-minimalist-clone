@@ -1,21 +1,22 @@
 const {List} = require("../models");
 const {Router} = require('express')
 const protect = require('../middlewares/protect')
+const {User} = require("../models");
 
 const router = Router()
 
 router.use(protect)
 
 router.get('/lists', async (req, res) => {
-    const lists = await List.find({ owners: { $in: [req.userId]}})
+    const lists = await List.find({ owners: req.userId })
     res.json(lists)
 })
 
 router.post('/lists', async (req, res) => {
-    const user = req.body.user;
+    const user = await User.findById(req.userId)
 
     const list = await List.create({
-        title: req.body.title,
+        title: req.body.title || "Another list",
         tasks: req.body.tasks || [],
         owners: [user._id]
     })
@@ -25,12 +26,12 @@ router.post('/lists', async (req, res) => {
     await user.save()
     await list.save()
 
-    res.status(201).json({ message: 'List created', data: {list}})
+    res.status(201).json(list)
 })
 
-router.get('/lists/:id', async (req, res) => {
-    const list = await List.findById(req.params.id).populate('owners', 'email').exec()
-    res.json({message: 'List retrieved', data: { list }})
+router.delete('/lists/:id', async (req, res) => {
+    await List.findByIdAndDelete(req.params.id)
+    res.status(204).end()
 })
 
 router.put('/lists/:id', async (req, res) => {

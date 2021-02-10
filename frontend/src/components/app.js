@@ -4,14 +4,18 @@ import ListPage from '../pages/list-page/list-page'
 import AuthProvider from "../contexts/auth-context";
 import ProtectedRoute from "./protected-route/protected-route";
 import LoginPage from "../pages/login-page";
+import ListsProvider from "../contexts/lists-context";
 
 const App = () => (
     <BrowserRouter>
         <AuthProvider>
+
             <Switch>
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/login" component={LoginPage} />
-                <ProtectedRoute path="/lists" component={ListPage} />
+                <ListsProvider>
+                    <ProtectedRoute path="/lists" component={ListPage} />
+                </ListsProvider>
             </Switch>
         </AuthProvider>
     </BrowserRouter>
