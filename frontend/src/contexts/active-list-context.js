@@ -61,9 +61,18 @@ const ActiveListProvider = ({children}) => {
         })
     }
 
+    const removeCompletedTasks = async () => {
+        await api.removeManyTasks(activeId, {completed: true})
+        const newTasks = activeList.tasks.filter(({completed}) => !completed)
+        setActiveList({
+            ...activeList,
+            tasks: newTasks
+        })
+    }
+
     return (
         <ActiveListContext.Provider
-            value={{loading, ...activeList, updateTitle, removeTask, createTask, completeTask, uncheckTask}}>
+            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask}}>
             {children}
         </ActiveListContext.Provider>
     )

@@ -21,6 +21,7 @@ const ListCard = () => {
                 onKeyPress={(event) => {
                     if (event.key === 'Enter') {
                         createTask(event.target.value)
+                        event.target.value = ""
                     }
                 }}
             />

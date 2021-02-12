@@ -63,6 +63,12 @@ const login = async ({email, password}) => {
     return data.token;
 }
 
+const removeManyTasks = async (listId, filter) => {
+  await api.delete(`/lists/${listId}/tasks`, {
+      params: filter
+  })
+}
+
 export default {
     fetchLists,
     register,
@@ -74,6 +80,7 @@ export default {
     fetchOneList,
     updateTask,
     removeTask,
+    removeManyTasks,
 }
 
 
