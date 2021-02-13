@@ -7,19 +7,27 @@ const taskSchema = new Schema({
 
 const listSchema = new Schema({
     title: String,
-    owners: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     tasks: [taskSchema],
+    owners: [{type: Schema.Types.ObjectId, ref: 'User'}],
 })
 
 const userSchema = new Schema({
     email: String,
     password: String,
-    lists: [{ type: Schema.Types.ObjectId, ref: 'List' }]
+    lists: [{type: Schema.Types.ObjectId, ref: 'List'}]
 })
 
 const User = model('User', userSchema)
-const List = model('List', listSchema)
 const Task = model('Task', taskSchema)
+
+listSchema.pre("remove", async function (next) {
+    const filter = {lists: this._id};
+    const update = {$pull: {lists: this._id}};
+    await User.updateMany(filter, update)
+    next()
+})
+
+const List = model('List', listSchema)
 
 module.exports = {
     User,

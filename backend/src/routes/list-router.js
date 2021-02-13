@@ -1,21 +1,27 @@
 const {List} = require("../models");
 const {Router} = require('express')
 const protect = require('../middlewares/protect')
+const {User} = require("../models");
 
 const router = Router()
 
 router.use(protect)
 
 router.get('/lists', async (req, res) => {
-   const lists = await List.find({ owners: { $in: [req.body.user._id]}})
-    res.json(lists)
+    const user = await User.findById(req.userId).populate("lists", "title")
+    res.json(user.lists)
+})
+
+router.get('/lists/:id', async (req, res) => {
+    const list = await List.findById(req.params.id)
+    res.json(list)
 })
 
 router.post('/lists', async (req, res) => {
-    const user = req.body.user;
+    const user = await User.findById(req.userId)
 
     const list = await List.create({
-        title: req.body.title,
+        title: req.body.title || "hola como estas",
         tasks: req.body.tasks || [],
         owners: [user._id]
     })
@@ -25,12 +31,12 @@ router.post('/lists', async (req, res) => {
     await user.save()
     await list.save()
 
-    res.status(201).json({ message: 'List created', data: {list}})
+    res.status(201).json(list)
 })
 
-router.get('/lists/:id', async (req, res) => {
-    const list = await List.findById(req.params.id).populate('owners', 'email').exec()
-    res.json({message: 'List retrieved', data: { list }})
+router.delete('/lists/:id', async (req, res) => {
+    await List.findByIdAndDelete(req.params.id)
+    res.status(204).end()
 })
 
 router.put('/lists/:id', async (req, res) => {
@@ -40,7 +46,7 @@ router.put('/lists/:id', async (req, res) => {
     list.owners = req.body.owners || list.owners
     await list.save()
 
-    res.json({message: 'List updated', data: {list}})
+    res.json(list)
 })
 
 router.post('/lists/:listId/tasks', async (req, res) => {
@@ -48,7 +54,18 @@ router.post('/lists/:listId/tasks', async (req, res) => {
     const list = await List.findById(listId)
     list.tasks.push(req.body)
     await list.save()
-    res.status(201).json({message: 'Task created', data: {list}})
+    res.status(201).json(list)
+})
+
+router.put('/lists/:listId/tasks/:taskId', async (req, res) => {
+    const listId = req.params.listId;
+    const taskId = req.params.taskId;
+
+    const list = await List.findById(listId)
+    list.tasks.id(taskId).completed = req.body.completed
+    await list.save()
+
+    res.status(201).json(list)
 })
 
 router.delete('/lists/:listId/tasks/:taskId', async (req, res) => {
@@ -59,7 +76,20 @@ router.delete('/lists/:listId/tasks/:taskId', async (req, res) => {
     list.tasks.id(taskId).remove()
     await list.save()
 
-    res.status(204).json({message: 'Task deleted', data: {list}})
+    res.status(204).end()
+})
+
+router.delete('/lists/:listId/tasks', async (req, res) => {
+    const listId = req.params.listId;
+
+    const filter = {}
+    if (req.query.completed) {
+        filter.completed = req.query.completed === 'true'
+    }
+
+    await List.updateMany({_id: listId}, {$pull: {tasks: filter}})
+
+    res.status(204).end()
 })
 
 module.exports = router

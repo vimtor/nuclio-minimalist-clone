@@ -1,5 +1,13 @@
+:root {
+  --color-blue: hsl(210, 79%, 54%);
+  --color-white: white;
+  --color-gray: hsl(225, 17%, 95%);
+  --font-weight-light: 300;
+}
+
 *, *:before, *:after {
   box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
 }
 
 body, h1, h2, h3, h4, h5, h6, p, ol, ul {

@@ -8,18 +8,19 @@ module.exports = async (req, res, next) => {
     const token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
 
     if (!token) {
-        return res.status(401).json({message: 'You need a token'});
+        return res.status(401).json({error: 'You need a token'});
     }
 
     try {
-        const decoded = await verifyToken(token, 'hector')
-        const user = await User.findById(decoded.id)
-        if (!user) {
-            res.status(403).json({message: 'Invalid token'});
+        const decoded = await verifyToken(token, process.env.JWT_SECRET)
+        const exists = await User.exists({_id: decoded.id})
+        if (!exists) {
+            res.status(403).json({error: 'Invalid token'});
+            next()
         }
-        req.body.user = user;
+        req.userId = decoded.id;
         next();
     } catch (error) {
-        res.status(403).json({message: 'Invalid token'})
+        res.status(403).json({error: 'Invalid token'})
     }
 }

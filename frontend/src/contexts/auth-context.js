@@ -1,33 +1,74 @@
-import {createContext, useState} from 'react'
-import ky from "ky";
-
-const api = 'http://localhost:3001'
+import {createContext, useReducer} from 'react'
+import {getUserIdFromToken} from "../helpers/token";
+import api from '../helpers/api'
 
 export const AuthContext = createContext({
+    loading: false,
     logged: false,
     userId: null,
     token: null,
     register: () => {},
-    login: () => {}
+    login: () => {},
+    logout: () => {}
 })
 
+const token = localStorage.getItem("token");
+
+const initialState = {
+    loading: false,
+    logged: token !== null,
+    userId: token ? getUserIdFromToken(token) : null,
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+      case 'loading':
+          return {
+              ...state,
+              loading: true,
+          }
+      case 'login':
+          return {
+              userId: getUserIdFromToken(action.token),
+              logged: true,
+              loading: false
+          }
+      case 'logout':
+          return initialState;
+  }
+}
+
 const AuthProvider = ({children}) => {
-    const [userId, setUserId] = useState(null)
-    const [logged, setLogged] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [token, setToken] = useState(null)
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    const loginWithGoogle = async () => {
+        dispatch({type: 'loading'})
+        const token = await api.loginWithGoogle()
+        dispatch({type: 'login', token })
+        localStorage.setItem('token', token)
+    }
 
     const register = async ({email, password}) => {
-        setLoading(true)
-        const {data} = await ky.post(`${api}/register`, {json: {email, password}}).json()
-        setUserId(data.user._id)
-        setToken(data.token)
-        setLogged(true)
-        setLoading(false)
+        dispatch({type: 'loading'})
+        const token = await api.register({email, password})
+        dispatch({type: 'login', token })
+        localStorage.setItem('token', token)
+    }
+
+    const login = async ({email, password}) => {
+        dispatch({type: 'loading'})
+        const token = await api.login({email, password})
+        dispatch({type: 'login', token })
+        localStorage.setItem('token', token)
+    }
+
+    const logout = () => {
+        dispatch({type: 'logout'})
+        localStorage.removeItem("token")
     }
 
     return (
-        <AuthContext.Provider value={{userId, logged, loading, token, register}}>
+        <AuthContext.Provider value={{...state, token, login, register, logout, loginWithGoogle}}>
             {children}
         </AuthContext.Provider>
     )

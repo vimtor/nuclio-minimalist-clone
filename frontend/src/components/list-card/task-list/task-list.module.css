@@ -1,0 +1,31 @@
+.list {
+}
+
+.item {
+    padding: 1em;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid lightgray;
+    align-items: center;
+}
+
+.cross {
+    margin-left: auto;
+    visibility: hidden;
+    fill: gray;
+    opacity: 0;
+    transition: opacity 500ms;
+    cursor: pointer;
+}
+
+.item:hover > .cross {
+    visibility: visible;
+    opacity: 1;
+}
+
+.item > input[type=checkbox] {
+    margin-right: 1em;
+    width: 16px;
+    height: 16px;
+}
+
