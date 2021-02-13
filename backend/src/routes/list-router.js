@@ -21,7 +21,7 @@ router.post('/lists', async (req, res) => {
     const user = await User.findById(req.userId)
 
     const list = await List.create({
-        title: req.body.title || "Another list",
+        title: req.body.title || "hola como estas",
         tasks: req.body.tasks || [],
         owners: [user._id]
     })
@@ -76,7 +76,20 @@ router.delete('/lists/:listId/tasks/:taskId', async (req, res) => {
     list.tasks.id(taskId).remove()
     await list.save()
 
-    res.status(204).json(list)
+    res.status(204).end()
+})
+
+router.delete('/lists/:listId/tasks', async (req, res) => {
+    const listId = req.params.listId;
+
+    const filter = {}
+    if (req.query.completed) {
+        filter.completed = req.query.completed === 'true'
+    }
+
+    await List.updateMany({_id: listId}, {$pull: {tasks: filter}})
+
+    res.status(204).end()
 })
 
 module.exports = router

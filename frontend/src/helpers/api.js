@@ -1,5 +1,21 @@
 import axios from "axios";
 
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAd_i7fjM42IsonvXRt90BLb9SwdN3OyjU",
+    authDomain: "minmalist-clone.firebaseapp.com",
+    projectId: "minmalist-clone",
+    storageBucket: "minmalist-clone.appspot.com",
+    messagingSenderId: "900533090898",
+    appId: "1:900533090898:web:b70dc18f8d3a711e2fbd8b"
+};
+
+firebase.initializeApp(firebaseConfig)
+
+const auth = firebase.auth()
+
 const api = axios.create({
     baseURL: "http://localhost:3001",
     headers: {
@@ -63,6 +79,14 @@ const login = async ({email, password}) => {
     return data.token;
 }
 
+const loginWithGoogle = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    const result = await auth.signInWithPopup(provider)
+    const token = await result.user.getIdToken()
+    const {data} = await api.post('/auth/google', {token})
+    return data.token
+}
+
 const removeManyTasks = async (listId, filter) => {
   await api.delete(`/lists/${listId}/tasks`, {
       params: filter
@@ -81,6 +105,7 @@ export default {
     updateTask,
     removeTask,
     removeManyTasks,
+    loginWithGoogle
 }
 
 

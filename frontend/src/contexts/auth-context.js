@@ -41,6 +41,13 @@ const reducer = (state, action) => {
 const AuthProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    const loginWithGoogle = async () => {
+        dispatch({type: 'loading'})
+        const token = await api.loginWithGoogle()
+        dispatch({type: 'login', token })
+        localStorage.setItem('token', token)
+    }
+
     const register = async ({email, password}) => {
         dispatch({type: 'loading'})
         const token = await api.register({email, password})
@@ -61,7 +68,7 @@ const AuthProvider = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value={{...state, token, login, register, logout}}>
+        <AuthContext.Provider value={{...state, token, login, register, logout, loginWithGoogle}}>
             {children}
         </AuthContext.Provider>
     )

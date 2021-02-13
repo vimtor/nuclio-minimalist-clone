@@ -12,10 +12,8 @@ export const ActiveListContext = createContext({
     createTask: () => {
     },
     uncheckTask: () => {
-
     },
     completeTask: () => {
-
     }
 })
 
