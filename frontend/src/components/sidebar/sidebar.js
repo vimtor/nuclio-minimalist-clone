@@ -1,10 +1,10 @@
 import ProfileDisplay from "../profile-display/profile-display";
 import ListsFeed from "../lists-feed/lists-feed";
-import './sidebar.css'
+import styles from './sidebar.module.css'
 
 const Sidebar = () => {
   return (
-      <aside className="sidebar-container">
+      <aside className={styles.container}>
           <ProfileDisplay />
           <ListsFeed />
       </aside>

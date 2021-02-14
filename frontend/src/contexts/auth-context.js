@@ -6,7 +6,6 @@ export const AuthContext = createContext({
     loading: false,
     logged: false,
     userId: null,
-    token: null,
     register: () => {},
     login: () => {},
     logout: () => {}
@@ -34,19 +33,16 @@ const reducer = (state, action) => {
               loading: false
           }
       case 'logout':
-          return initialState;
+          return {
+              loading: false,
+              logged: false,
+              userId: null
+          };
   }
 }
 
 const AuthProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-
-    const loginWithGoogle = async () => {
-        dispatch({type: 'loading'})
-        const token = await api.loginWithGoogle()
-        dispatch({type: 'login', token })
-        localStorage.setItem('token', token)
-    }
 
     const register = async ({email, password}) => {
         dispatch({type: 'loading'})
@@ -68,7 +64,7 @@ const AuthProvider = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value={{...state, token, login, register, logout, loginWithGoogle}}>
+        <AuthContext.Provider value={{...state, token, login, register, logout}}>
             {children}
         </AuthContext.Provider>
     )

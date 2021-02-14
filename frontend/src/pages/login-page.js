@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 
 const LoginPage = () => {
     const history = useHistory()
-    const {login, loginWithGoogle, loading} = useAuth()
+    const {login, loading} = useAuth()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -24,8 +24,6 @@ const LoginPage = () => {
                 <Input label="Password" type="password" name="password"/>
                 <button type="submit" disabled={loading}>Login</button>
             </form>
-            <hr/>
-            <button onClick={loginWithGoogle}>Continue with Google</button>
         </main>
     )
 }

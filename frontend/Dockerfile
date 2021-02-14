@@ -8,7 +8,6 @@ RUN npm install --silent
 
 COPY . .
 
-ENV PORT=3001
-EXPOSE ${PORT}
+EXPOSE 3000
 
 CMD ["npm", "start"]

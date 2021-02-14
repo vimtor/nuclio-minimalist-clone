@@ -1,10 +1,7 @@
-const util = require('util')
-const jwt = require('jsonwebtoken')
-const {User} = require("../models");
+import userRepository from "../repositories/user-repository";
+import {verifyToken} from "../helpers/token";
 
-const verifyToken = util.promisify(jwt.verify)
-
-module.exports = async (req, res, next) => {
+ const protect =  async (req, res, next) => {
     const token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
 
     if (!token) {
@@ -12,8 +9,8 @@ module.exports = async (req, res, next) => {
     }
 
     try {
-        const decoded = await verifyToken(token, process.env.JWT_SECRET)
-        const exists = await User.exists({_id: decoded.id})
+        const decoded = await verifyToken(token)
+        const exists = await userRepository.existsById(decoded.id)
         if (!exists) {
             res.status(403).json({error: 'Invalid token'});
             next()
@@ -24,3 +21,5 @@ module.exports = async (req, res, next) => {
         res.status(403).json({error: 'Invalid token'})
     }
 }
+
+export default protect

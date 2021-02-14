@@ -5,21 +5,23 @@
   "license": "MIT",
   "main": "./src/index.js",
   "scripts": {
-    "start": "node ./src/index.js",
-    "develop": "nodemon ./src/index.js"
+    "start": "babel-node src",
+    "develop": "nodemon -L --watch src --exec babel-node src"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.5",
-    "firebase-admin": "^9.5.0",
-    "google-auth-library": "^7.0.2",
+    "express-async-errors": "^3.1.1",
     "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.14",
-    "nodemailer": "^6.4.18",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "morgan": "^1.10.0",
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.7"
   }
 }
