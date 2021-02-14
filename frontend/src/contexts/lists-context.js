@@ -5,18 +5,10 @@ export const ListsContext = createContext({
     loading: false,
     lists: [],
     activeId: null,
-    setActiveList: () => {
-
-    },
-    removeList: () => {
-    },
-    createList: () => {
-    },
-    updateList: () => {
-    },
-    // TODO: Implement sharing
-    shareList: () => {
-    }
+    setActiveList: () => {},
+    removeList: () => {},
+    createList: () => {},
+    updateList: () => {},
 })
 
 const ListsProvider = ({children}) => {
@@ -26,7 +18,6 @@ const ListsProvider = ({children}) => {
 
     useEffect(() => {
         api.fetchLists().then((data) => {
-            console.log(data)
             setLoading(false)
             setLists(data)
             setActiveList(data[0]._id)

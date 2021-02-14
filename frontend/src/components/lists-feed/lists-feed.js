@@ -9,15 +9,20 @@ const ListsFeed = () => {
         <section>
             <h3 className={styles.title}>Your lists</h3>
             <ul>
-                {lists.map(({_id, title}) => (
-                    <ListItem
-                        key={_id}
-                        title={title}
-                        active={_id === activeId}
-                        onClick={() => setActiveList(_id)}
-                        onRemove={() => removeList(_id)}
-                    />
-                ))}
+                {lists.map(({_id, title}) => {
+                    return (
+                        <ListItem
+                            key={_id}
+                            title={title}
+                            active={_id === activeId}
+                            onClick={() => setActiveList(_id)}
+                            onRemove={(event) => {
+                                event.stopPropagation()
+                                removeList(_id);
+                            }}
+                        />
+                    );
+                })}
             </ul>
             <button className={styles.button} onClick={createList}>
                 + Add new list
