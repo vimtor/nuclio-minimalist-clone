@@ -1,0 +1,124 @@
+.main{
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(240, 222, 199);
+    height: 100vh;
+}
+.container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em;
+    line-height: 2em;
+}
+.header{
+    height: 3em;
+    background-color: rgb(248,160,122);
+    color:white;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+    padding: 15px;
+}
+.titleContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.titleContainer > h3{
+    margin: 5px;
+    padding: 10px;
+}
+.titleContainer > h1{
+    margin: 5px;
+    padding: 10px;
+}
+
+.icon{
+    color: rgb(46,138,230);
+    font-size: 6em;
+}
+.formContainer{
+    font-size: 12px;
+    font-style: italic;
+  
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.inputs{
+    border:none;
+    background-image:none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    color: white;
+    background-color:rgb(248,160,122) ;
+    border-radius: 10px;
+    height: 2em;
+    text-indent: 10px;
+}
+.inputs > label{
+    font-style: italic;
+}
+.buttonContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 14em;
+    padding: 5px;
+}
+
+button {
+    border:none;
+    background-image:none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    width: 6em;
+    height: 2em;
+    font-weight: bold;
+    background-color: rgb(248,160,122);
+    border-radius: 10px;
+    font-size: 14px;
+    color:white;
+    margin: 10px;
+    cursor: pointer;
+
+}
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login{
+    border:none;
+    background-image:none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    width: 4em;
+    height: 2em;
+    font-weight: bold;
+    background-color: rgb(248,160,122);
+    border-radius: 10px;
+    font-size: 14px;
+    color:white;
+    margin: 10px;
+    cursor: pointer;
+}
+@media only screen and (max-width: 500px) {
+    .header{
+        height: 4em;
+    }
+}
