@@ -7,6 +7,7 @@ const router = Router()
 router.use(protect)
 
 router.get('/', async (req, res) => {
+    console.log('prueba');
     const lists = await listService.getListsFromOwner(req.userId)
     res.json(lists)
 })
