@@ -20,6 +20,7 @@ const RegisterPage = () => {
         const email = data.get('email')
         const password = data.get('password')
         const confirmPassword = data.get('confirm-password')
+        
 
         if (password !== confirmPassword) {
             setError('Passwords do not match')
@@ -30,7 +31,7 @@ const RegisterPage = () => {
                 history.push("/lists")
             }
             catch (error) {
-                setError('Something went wrong')
+                setError('This email is currently in use, please try another!')
             }
         }
     }

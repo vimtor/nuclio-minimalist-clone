@@ -3,6 +3,11 @@ import userRepository from '../repositories/user-repository'
 import {comparePasswords} from "../helpers/password";
 
 const register = async ({email, password}) => {
+
+    let user = await userRepository.findByEmail(email)
+    if(user){
+        return false;
+    }
     const list = await listRepository.create({
         title: 'My tasks',
         tasks: [
@@ -11,7 +16,7 @@ const register = async ({email, password}) => {
         ]
     })
 
-    const user = await userRepository.create({ email, password })
+    user = await userRepository.create({ email, password })
 
     await listRepository.updateById(list._id, { owners: [user._id] })
     return userRepository.updateById(user._id, { lists: [list._id] })
