@@ -14,6 +14,8 @@ export const ActiveListContext = createContext({
     uncheckTask: () => {
     },
     completeTask: () => {
+    },
+    updateTasksOrder: () => {
     }
 })
 
@@ -30,6 +32,10 @@ const ActiveListProvider = ({children}) => {
             refreshList()
         }
     }, [activeId])
+
+    const updateTasksOrder = (newTaskList) => {
+        console.log(newTaskList);
+    }
 
     const updateTitle = (title) => {
         updateList(activeId, {title})
@@ -70,7 +76,7 @@ const ActiveListProvider = ({children}) => {
 
     return (
         <ActiveListContext.Provider
-            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask}}>
+            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask, updateTasksOrder}}>
             {children}
         </ActiveListContext.Provider>
     )

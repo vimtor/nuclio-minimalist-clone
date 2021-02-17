@@ -5,12 +5,23 @@ import useActiveList from "../../../hooks/use-active-list";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const TaskList = () => {
-    const {removeTask, tasks, uncheckTask, completeTask} = useActiveList();
+    const {removeTask, tasks, uncheckTask, completeTask, updateTasksOrder} = useActiveList();
+
+    function handleOnDragEnd(result) {
+        if (!result.destination) return;
+        console.log(tasks);
+        const items = Array.from(tasks);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+        updateTasksOrder(items);
+        // console.log(items);
+
+    }
 
     return (
-        <DragDropContext onDragEnd={console.log("drag")}>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="task">
-                {(provided) =>(
+                {(provided, snapshot) =>(
                     <ul className="{styles.list} task" {...provided.droppableProps} ref={provided.innerRef}>
                         {tasks?.map(({_id, title, completed}, index) => {
                             return (
@@ -32,7 +43,9 @@ const TaskList = () => {
 
                             )
                         })}
+                        {provided.placeholder}
                     </ul>
+
                 )
                 }
             </Droppable>
