@@ -34,7 +34,9 @@ const ActiveListProvider = ({children}) => {
     }, [activeId])
 
     const updateTasksOrder = (newTaskList) => {
-        console.log(newTaskList);
+        newTaskList.map(async (task, index) => {
+            await api.updateTask(activeId, task._id, {index: index})
+        })
     }
 
     const updateTitle = (title) => {

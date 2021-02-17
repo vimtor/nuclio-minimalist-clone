@@ -4,6 +4,7 @@ import userRepository from './user-repository'
 export const taskSchema = new Schema({
     title: String,
     completed: Boolean,
+    index: Number
 })
 
 const listSchema = new Schema({
