@@ -21,7 +21,7 @@ const TaskList = () => {
     return (
         <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="task">
-                {(provided, snapshot) =>(
+                {(provided) =>(
                     <ul className="{styles.list} task" {...provided.droppableProps} ref={provided.innerRef}>
                         {tasks?.sort((a, b) => a.index - b.index).map(({_id, title, completed}, index) => {
                             return (
