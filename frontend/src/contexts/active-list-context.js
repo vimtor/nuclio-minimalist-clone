@@ -16,7 +16,8 @@ export const ActiveListContext = createContext({
     completeTask: () => {
     },
     updateTasksOrder: () => {
-    }
+    },
+    truncateList: () => {}
 })
 
 const ActiveListProvider = ({children}) => {
@@ -33,10 +34,8 @@ const ActiveListProvider = ({children}) => {
         }
     }, [activeId])
 
-    const updateTasksOrder = (newTaskList) => {
-        newTaskList.map(async (task, index) => {
-            await api.updateTask(activeId, task._id, {index: index})
-        })
+    const updateTasksOrder = async (newTaskList) => {
+        await api.updateList(activeId, {tasks: newTaskList})
     }
 
     const updateTitle = (title) => {
@@ -76,9 +75,14 @@ const ActiveListProvider = ({children}) => {
         })
     }
 
+    const truncateList = async () => {
+        await api.removeManyTasks(activeId, {});
+    }
+
+
     return (
         <ActiveListContext.Provider
-            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask, updateTasksOrder}}>
+            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask, updateTasksOrder, truncateList}}>
             {children}
         </ActiveListContext.Provider>
     )
