@@ -7,7 +7,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const TaskList = () => {
     let {removeTask, tasks, uncheckTask, completeTask, updateTasksOrder, truncateList} = useActiveList();
 
-    function handleOnDragEnd(result) {
+    const handleOnDragEnd = (result) => {
         if (!result.destination) return;
         const items = Array.from(tasks);
         const [reorderedItem] = items.splice(result.source.index, 1);
