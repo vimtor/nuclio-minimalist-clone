@@ -35,6 +35,13 @@ const ActiveListProvider = ({children}) => {
         updateList(activeId, {title})
     }
 
+    //77
+    const updateDueDateTask = async (id, dueDate) => {
+        console.log(`UpdateDueDateTask at activeListContext ${activeId} - ${id} - ${dueDate}`)
+        const newList = await api.updateTask(activeId, id, {dueDate: dueDate})
+        setActiveList(newList)
+    }
+
     const createTask = async (title) => {
         const newList = await api.createTask(activeId, title)
         setActiveList(newList)
@@ -70,7 +77,7 @@ const ActiveListProvider = ({children}) => {
 
     return (
         <ActiveListContext.Provider
-            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask}}>
+            value={{loading, ...activeList, updateTitle, updateDueDateTask, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask}}>
             {children}
         </ActiveListContext.Provider>
     )
