@@ -3,8 +3,7 @@ import userRepository from './user-repository'
 
 export const taskSchema = new Schema({
     title: String,
-    completed: Boolean,
-    index: Number
+    completed: Boolean
 })
 
 const listSchema = new Schema({
