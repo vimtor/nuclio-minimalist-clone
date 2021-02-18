@@ -17,7 +17,8 @@ const ProfileDisplay = () => {
             <img className="profile-display-image" src={profileImage} alt="profile image"/>
             <div className="profile-display-content">
                 <h3 className="profile-display-name">Anonymous</h3>
-                <button className="profile-display-button" onClick={handleLogout}>Sign out</button>
+                <button className="profile-display-button" onClick={handleLogout}> 🖊 Edit profile</button>
+                <button className="profile-display-button" onClick={handleLogout}> 🚪 Sign out</button>
             </div>
         </section>
     )

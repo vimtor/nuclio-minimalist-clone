@@ -5,6 +5,7 @@ import AuthProvider from "../contexts/auth-context";
 import ProtectedRoute from "./protected-route/protected-route";
 import LoginPage from "../pages/login-page";
 import ListsProvider from "../contexts/lists-context";
+import ProfilePage from "../pages/profile-page/profile-page";
 
 const App = () => (
     <BrowserRouter>
@@ -13,6 +14,7 @@ const App = () => (
             <Switch>
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/login" component={LoginPage} />
+                <ProtectedRoute path="/profile" component={ProfilePage} />
                 <ListsProvider>
                     <ProtectedRoute path="/lists" component={ListPage} />
                 </ListsProvider>
