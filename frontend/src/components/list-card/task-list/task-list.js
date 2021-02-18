@@ -20,7 +20,7 @@ const TaskList = () => {
                         }}/>
                         {title}
 
-                        <DateButton date={dueDate} updateDueDate={(date) => updateDueDateTask(_id, date)}/>
+                        <DateButton date={dueDate} updateDueDate={(date) => updateDueDateTask(_id, date)} className={styles.date}/>
                         <CloseButton onClick={() => removeTask(_id)} className={styles.cross}/>
                     </li>
                 )

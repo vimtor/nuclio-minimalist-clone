@@ -18,6 +18,12 @@
     cursor: pointer;
 }
 
+.date {
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 7em;
+}
+
 .item:hover > .cross {
     visibility: visible;
     opacity: 1;
