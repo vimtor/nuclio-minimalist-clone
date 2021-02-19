@@ -7,26 +7,29 @@ const TaskList = () => {
     const {removeTask, tasks, uncheckTask, updateDueDateTask, completeTask} = useActiveList()
 
     return (
-        <ul className={styles.list}>
+        <ul>
             {tasks?.map(({_id, title, completed, dueDate}) => {
                 return (
-                    <li className={styles.item} key={_id}>
-                        <input type="checkbox" checked={completed} onChange={() => {
-                            if (completed) {
-                                uncheckTask(_id)
-                            } else {
-                                completeTask(_id)
-                            }
-                        }}/>
-                        {title}
-
-                        <DateButton date={dueDate} updateDueDate={(date) => updateDueDateTask(_id, date)} className={styles.date}/>
+                    <li key={_id} className={styles.list}>
+                        <div className={styles.left}>
+                            <input type="checkbox" checked={completed} onChange={() => {
+                                if (completed) {
+                                    uncheckTask(_id)
+                                } else {
+                                    completeTask(_id)
+                                }
+                            }}/>
+                            {title}
+                        </div>
+                        <div className={styles.right}>
+                            <DateButton date={dueDate} updateDueDate={(date) => updateDueDateTask(_id, date)}/>
+                        </div>
                         <CloseButton onClick={() => removeTask(_id)} className={styles.cross}/>
                     </li>
                 )
             })}
-        </ul>
-    )
-}
+                </ul>
+                )
+            }
 
-export default TaskList
+            export default TaskList

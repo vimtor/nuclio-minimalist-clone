@@ -35,7 +35,6 @@ const ActiveListProvider = ({children}) => {
         updateList(activeId, {title})
     }
 
-    //77
     const updateDueDateTask = async (id, dueDate) => {
         console.log(`UpdateDueDateTask at activeListContext ${activeId} - ${id} - ${dueDate}`)
         const newList = await api.updateTask(activeId, id, {dueDate: dueDate})
