@@ -33,7 +33,10 @@ const removeTask = listRepository.removeTask
 
 const removeAllTasks = listRepository.removeAllTasks
 
-
+const shareList = async (userEmails, listId) =>{
+    const users = userEmails.map( email => userRepository.findByEmail(email));
+    await listRepository.updateById(listId, {owners: users} );   
+}
 export default {
     getListsFromOwner,
     getById,
@@ -43,5 +46,6 @@ export default {
     pushTask,
     updateTask,
     removeTask,
-    removeAllTasks
+    removeAllTasks, 
+    shareList
 }

@@ -66,4 +66,13 @@ router.delete('/:listId/tasks', async (req, res) => {
     res.status(204).end()
 })
 
+router.post('/:listId/share', async (req, res) => {
+    const listId = req.params.listId;
+    const userEmails = req.body.userEmails;
+    // const userEmails = ["prueba@hector.com", "alex@hector.com"];
+    await listService.shareList(userEmails, listId);
+
+    res.status(200).end();
+}) 
+
 export default router
