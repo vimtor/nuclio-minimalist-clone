@@ -16,8 +16,7 @@ export const ActiveListContext = createContext({
     completeTask: () => {
     },
     updateTasksOrder: () => {
-    },
-    truncateList: () => {}
+    }
 })
 
 const ActiveListProvider = ({children}) => {
@@ -75,14 +74,10 @@ const ActiveListProvider = ({children}) => {
         })
     }
 
-    const truncateList = async () => {
-        await api.removeManyTasks(activeId, {});
-    }
-
 
     return (
         <ActiveListContext.Provider
-            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask, updateTasksOrder, truncateList}}>
+            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask, updateTasksOrder}}>
             {children}
         </ActiveListContext.Provider>
     )
