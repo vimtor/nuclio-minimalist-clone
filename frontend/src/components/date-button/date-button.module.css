@@ -1,0 +1,9 @@
+.container {
+    padding: 1em;
+    align-items: center;
+}
+
+.expired {
+    color: red;
+    padding: 1em;
+}
