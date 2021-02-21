@@ -3,11 +3,14 @@ import styles from "./task-list.module.css";
 import CloseButton from "../../close-button/close-button";
 import useActiveList from "../../../hooks/use-active-list";
 import DateButton from "../../date-button/date-button";
-
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const TaskList = () => {
-    const {removeTask, tasks, uncheckTask, updateDueDateTask, completeTask, updateTasksOrder} = useActiveList()
+
+    let {removeTask, tasks, uncheckTask, updateDueDateTask, completeTask, updateTasksOrder} = useActiveList()
+
+    //77 1-If next, 2-let instead const in previous instruction and 3-tasks.map instead of tasks?map
+    if (! tasks) tasks = [];
 
     const handleOnDragEnd = (result) => {
         if (!result.destination) return;
