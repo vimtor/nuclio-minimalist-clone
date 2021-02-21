@@ -1,3 +1,4 @@
+import React from "react"
 import {Route, Switch, BrowserRouter} from 'react-router-dom'
 import RegisterPage from '../pages/register/register-page'
 import ListPage from '../pages/list-page/list-page'
@@ -11,9 +12,7 @@ import { Redirect } from 'react-router-dom';
 const App = () => (
     <BrowserRouter>
         <AuthProvider>
-
             <Switch>
-               
                 <ProtectedLogged Route path="/register" component={RegisterPage} />
                 <ProtectedLogged Route path="/login" component={LoginPage} />
                 <Route exact path="/">
