@@ -10,21 +10,20 @@ const DateButton = ({date, updateDueDate}) => {
     const [dueDate, setDueDate] = useState(date ? new Date(date) : null);
 
     useEffect(() => {
-        console.log(`updateDueDate at useEffect execute.`);
         updateDueDate(dueDate);
     }, [dueDate])
 
     registerLocale('es', es);
 
     return (
-        <div className={styles.container}>
-            <DatePicker
-                selected={dueDate}
-                onChange={date => setDueDate(date)}
-                isClearable
-                placeholderText="Add due date"
-                locale="es"
-                dateFormat="dd-MM-yyyy"
+        <div>
+            <DatePicker className={styles.datepicker}
+                        selected={dueDate}
+                        onChange={date => setDueDate(date)}
+                        isClearable
+                        placeholderText="Add due date"
+                        locale="es"
+                        dateFormat="dd-MM-yyyy"
             />
             <span className={styles.expired}>{(dueDate < (new Date()) && dueDate) ? "Expired" : ""}</span>
         </div>

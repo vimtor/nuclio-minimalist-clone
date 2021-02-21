@@ -9,12 +9,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    min-width: 150px;
+    min-width: 200px;
 }
 
 .right {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
 }
 
