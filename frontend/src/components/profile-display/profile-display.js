@@ -1,3 +1,4 @@
+import React from "react";
 import profileImage from "../../images/profile-placeholder.jpg";
 import './profile-display.css'
 import useAuth from "../../hooks/use-auth";

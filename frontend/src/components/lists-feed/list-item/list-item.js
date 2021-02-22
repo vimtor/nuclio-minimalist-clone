@@ -1,3 +1,4 @@
+import React from "react";
 import styles from './list-item.module.css'
 import CloseButton from "../../close-button/close-button";
 

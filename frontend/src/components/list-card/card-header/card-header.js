@@ -1,4 +1,5 @@
-import {useState, useEffect} from 'react'
+import React from "react";
+import {useState, useEffect} from 'react';
 import styles from "./card-header.module.css";
 import useActiveList from "../../../hooks/use-active-list";
 
