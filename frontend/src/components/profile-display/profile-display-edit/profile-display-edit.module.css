@@ -1,0 +1,30 @@
+.modal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background-color: rgba(45, 138,230, 0.4);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(240, 222, 199, 0.5);
+}
+
+.content {
+    background-color: red;
+}
+
+.portal {
+    background-color: red;
+}
+
+.button {
+    /*background-color: rgb(248,160,122);*/
+    background-color: rgba(45, 138,230);
+}

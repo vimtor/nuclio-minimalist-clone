@@ -9,7 +9,7 @@ const TaskList = () => {
 
     let {removeTask, tasks, uncheckTask, updateDueDateTask, completeTask, updateTasksOrder} = useActiveList()
 
-    //77 1-If next, 2-let instead const in previous instruction and 3-tasks.map instead of tasks?map
+    //TODO 1- remove if next line, 2- set const instead let in previous instruction and 3- set tasks?.map instead of tasks.map
     if (! tasks) tasks = [];
 
     const handleOnDragEnd = (result) => {

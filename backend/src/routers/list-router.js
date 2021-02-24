@@ -11,9 +11,10 @@ router.get('/', async (req, res) => {
     res.json(lists)
 })
 
+//TODO - Remove?
 router.get('/:id', async (req, res) => {
-    const list = await listService.getById(req.params.id)
-    res.json(list)
+    const lists = await listService.getListsFromOwner(req.userId)
+    res.json(lists)
 })
 
 router.post('/', async (req, res) => {
@@ -29,11 +30,6 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const list = await listService.updateById(req.params.id, req.body)
     res.json(list)
-})
-
-router.post('/:listId/tasks', async (req, res) => {
-    const list = await listService.pushTask(req.params.listId, req.body)
-    res.status(201).json(list)
 })
 
 router.put('/:listId/tasks/:taskId', async (req, res) => {
@@ -52,6 +48,11 @@ router.delete('/:listId/tasks/:taskId', async (req, res) => {
     await listService.removeTask(listId, taskId)
 
     res.status(204).end()
+})
+
+router.post('/:listId/tasks', async (req, res) => {
+    const list = await listService.pushTask(req.params.listId, req.body)
+    res.status(201).json(list)
 })
 
 router.delete('/:listId/tasks', async (req, res) => {
