@@ -1,5 +1,6 @@
 import {Schema, model} from "mongoose";
 import {encryptPassword} from "../helpers/password";
+import listRepository from './list-repository';
 
 const userSchema = new Schema({
     email: String,
@@ -16,6 +17,14 @@ userSchema.pre("save", async function (next) {
 })
 
 const userModel = model('User', userSchema)
+
+const getUser = async (id) => {
+  return userModel.find({_id: id});
+}
+
+const getAllUsers = async (id) => {
+  return userModel.find({_id: {$ne: id}});
+}
 
 const existsById = async (id) => {
   return userModel.exists({_id: id})
@@ -47,6 +56,8 @@ const addListToUser = async (userId, listId) => {
 
 
 export default {
+    getAllUsers, 
+    getUser,
     create,
     updateById,
     existsById,

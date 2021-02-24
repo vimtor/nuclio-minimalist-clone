@@ -1,6 +1,7 @@
 import {Router} from 'express'
 import protect from '../middlewares/protect'
 import listService from '../services/list-service'
+import userService from '../services/user-service'
 
 const router = Router()
 
@@ -69,10 +70,16 @@ router.delete('/:listId/tasks', async (req, res) => {
 router.post('/:listId/share', async (req, res) => {
     const listId = req.params.listId;
     const userEmails = req.body.userEmails;
-    // const userEmails = ["prueba@hector.com", "alex@hector.com"];
+    
     await listService.shareList(userEmails, listId);
 
     res.status(200).end();
 }) 
+
+router.get('/:listId/owners', async (req, res) => {
+    const owners = await listService.getListOwners(req.params.listId)
+    const emails = await userService.getEmailsToShare(owners, req.userId);
+    res.json(emails)
+})
 
 export default router

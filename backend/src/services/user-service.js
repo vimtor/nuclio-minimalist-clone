@@ -30,8 +30,62 @@ const login = async ({email, password}) => {
     }
     return null
 }
+const getUsersEmails = async (id) => {
+    const usersInfo = await userRepository.getAllUsers(id);
+    
+    const length = Object.keys(usersInfo).length;
+    let emails = [];
 
+    for (let i = 0; i < length; i++){
+        emails.push(usersInfo[i].email);
+    }
+   
+    return emails;
+}
+
+const getEmailsToShare = async (owners, id) => {
+    let ownersEmails = [];
+    let shareEmails = [];
+   
+    // Email del user para filtrar los emails menos quien está logged
+    const userInfo = await userRepository.getUser(id);
+    const userLoggedEmail = userInfo[0].email;
+        
+    //  Devolver los Owners de la lista, si no está logged y es Owner va dentro de shareEmails y Owners emails
+    await Promise.all(owners.map(async id => {
+        
+        const response = userRepository.findById(id);
+        const user = await response;
+        if(user.email !== userLoggedEmail){
+            const userShare = {
+                email: user.email,
+                shared: true,
+            }
+            ownersEmails.push(user.email);
+            shareEmails.push(userShare);
+        }
+
+    }))
+  
+    // Todos los usuarios menos el logged
+    const otherUsersNotLogged = await getUsersEmails(id);
+    
+    // Compruebo que de los que están registrados menos el logged y no sea owner, lo añado como shared: False
+    for (let i = 0; i < otherUsersNotLogged.length ; i++){
+        if(otherUsersNotLogged[i] !== userLoggedEmail && otherUsersNotLogged[i] !== ownersEmails[i]){
+            const userShared = {
+                email: otherUsersNotLogged[i],
+                shared: false
+            }
+            shareEmails.push(userShared);
+        }
+    }
+   
+    return shareEmails;
+}
 export default {
+    getUsersEmails,
+    getEmailsToShare,
     register,
     login
 }

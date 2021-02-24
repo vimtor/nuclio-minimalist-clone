@@ -33,6 +33,11 @@ const removeTask = listRepository.removeTask
 
 const removeAllTasks = listRepository.removeAllTasks
 
+const getListOwners = async (listId) => {
+    const list = await listRepository.findById(listId);
+    return list.owners;
+}
+
 const shareList = async (userEmails, listId) =>{
     let users = [];
     for (const email of userEmails) {
@@ -43,6 +48,7 @@ const shareList = async (userEmails, listId) =>{
     const listOwners = [...list.owners, ...users];
     await listRepository.updateById(listId, {owners: listOwners});
 }
+
 export default {
     getListsFromOwner,
     getById,
@@ -53,5 +59,6 @@ export default {
     updateTask,
     removeTask,
     removeAllTasks,
-    shareList
+    shareList,
+    getListOwners
 }

@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 import errorHandler from "./middlewares/error-handler"
 import authRouter from './routers/auth-router'
 import listRouter from './routers/list-router'
+import usersRouter from './routers/users-router';
 import morgan from "morgan";
 
 const port = process.env.PORT || 3001;
@@ -20,6 +21,7 @@ app.use(rateLimit({windowMs: 60000, max: 100}))
 app.use(express.json())
 
 app.use(authRouter)
+app.use(usersRouter)
 app.use('/lists', listRouter)
 
 app.use(errorHandler)
