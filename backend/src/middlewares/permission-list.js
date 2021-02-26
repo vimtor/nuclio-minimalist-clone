@@ -13,20 +13,3 @@ const listPermissionRouter =  async (req, res, next ,listId) => {
 
 
 export default listPermissionRouter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
