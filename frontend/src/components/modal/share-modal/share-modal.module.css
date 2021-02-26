@@ -5,7 +5,48 @@
     right: auto;
     bottom: auto;
     margin-right: -50%;
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
     transform: translate(-50%, -50%);
+    background-color: rgb(45,138,230);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    -webkit-box-shadow: 2px 4px 15px 2px #000000; 
+    box-shadow: 2px 4px 15px 2px #068cc7;
+    outline: none;
 }
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(213, 232, 240, 0.75);
+    
+  }
+  .buttonContainer{
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: space-evenly;
+  }
+  .button{
+      background-color: #4bbbeb;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+  }
+  .message{
+      margin: 10px;
+  }
+  .shareContainer{
+      width: 300px;
+      height: 300px;
+  }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import useLists from "../../hooks/use-lists";
-import api from '../../helpers/api';
-import './share-users.css'
+import useLists from "../../../hooks/use-lists";
+import api from '../../../helpers/api';
+import './share-list.css'
 import MultiSelect from "react-multi-select-component";
 
   const ShareList = () => {
