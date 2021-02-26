@@ -16,6 +16,9 @@ const ProfileDisplay = () => {
     const {logout} = useAuth()
     const [isOpen, setIsOpen] = useState(false);
 
+    let avatar64 = [];
+    if (avatar) avatar64 = Buffer.from(avatar);
+
     const handleLogout = () => {
         logout()
         history.push("/login")
@@ -25,9 +28,14 @@ const ProfileDisplay = () => {
         setIsOpen(true);
     }
 
+    const CurrentImage = () => {
+        if (!avatar) return <img className={styles.image} src={Buffer.from(profileImage)} alt="profile image"/>
+        return <img className={styles.image} src={avatar64} alt="profile image"/>
+    }
+
     return (
         <section className={styles.container}>
-            <img className={styles.image} src={avatar || profileImage} alt="profile image"/>
+            <CurrentImage />
             <div className={styles.content}>
                 <div className={styles.right}>
                     <h3 className={styles.name}>{alias}</h3>

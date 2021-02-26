@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState, useEffect} from "react";
 import styles from "./profile-display-edit.module.css"
 import Modal from 'react-modal';
 import ProfileAvatar from "../profile-avatar/profile-avatar";
@@ -7,8 +7,9 @@ import useUsers from "../../../hooks/use-users";
 
 const ProfileDisplayEdit = ({isOpen, setIsOpen, userId, updateProfile}) => {
     const aliasRef = useRef();
-    const {alias, avatar} = useUsers();
-    const [preview, setPreview] = useState(avatar || null);       //Collect data
+    const {alias, avatar} = useUsers()
+
+    const [preview, setPreview] = useState(avatar);       //Collect data
 
     const handleUpdate = () => {
         updateProfile(userId, aliasRef.current.value, preview);
@@ -18,28 +19,40 @@ const ProfileDisplayEdit = ({isOpen, setIsOpen, userId, updateProfile}) => {
         setIsOpen(false);
     }
 
-    let subtitle = "Subtitle placeholder";
+    useEffect(() => {
+        setPreview(avatar);
+    }, [avatar])
 
     return (
-        <div>
-            <Modal
-                isOpen={isOpen}
-                // style={customStyles}
-                contentLabel="Update profile"
-                className={styles.modal}
-                overlayClassName={styles.overlay}
-                portalClassName={styles.portal}
-                shouldCloseOnEsc={true}
-            >
-                <h2>Update profile</h2>
-                <form>
-                    <input type="text" defaultValue={alias} placeHolder="Give me your alias" ref={aliasRef}/>
-                    <ProfileAvatar preview={preview} setPreview={setPreview}/>
-                </form>
-                <button onClick={handleUpdate} className={styles.button}>Apply</button>
-                <button onClick={handleCancel} className={styles.button}>Cancel</button>
-            </Modal>
-        </div>
+        <Modal
+            isOpen={isOpen}
+            contentLabel="Update profile"
+            className={styles.modal}
+            shouldCloseOnEsc={true}
+        >
+            <div className={styles.container}>
+                <div className={styles.title}>
+                    <h2>Update profile</h2>
+                </div>
+                <div className={styles.modalContent}>
+                    <div className={styles.formHolder}>
+                        <form>
+                            <div className={styles.fieldsHolder}>
+                                <input type="text" defaultValue={alias} placeHolder="Give me your alias" ref={aliasRef}
+                                       className={styles.alias}/>
+                            </div>
+                            <div>
+                                <ProfileAvatar preview={preview} setPreview={setPreview} className={styles.avatar}/>
+                            </div>
+                        </form>
+                    </div>
+                    <div className={styles.buttonHolder}>
+                        <button onClick={handleUpdate} className={styles.button}>Apply</button>
+                        <button onClick={handleCancel} className={styles.button}>Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </Modal>
     )
 }
 

@@ -52,3 +52,4 @@ export default {
     getUser,           //TODO remove this line?
     getAllUsers,       //TODO remove this line?
 }
+

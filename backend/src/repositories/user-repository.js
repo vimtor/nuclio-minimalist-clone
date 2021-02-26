@@ -43,6 +43,11 @@ const findById = async (id) => {
     return userModel.findById(id).populate("lists", "title")
 }
 
+//TODO remove this method
+const findAll = async (id) => {
+    return userModel.find();
+}
+
 const addListToUser = async (userId, listId) => {
   return userModel.findByIdAndUpdate(userId, {$push: {lists: listId}})
 }
@@ -54,5 +59,6 @@ export default {
     removeListFromUsers,
     findByEmail,
     findById,
-    addListToUser
+    addListToUser,
+    findAll,
 }
