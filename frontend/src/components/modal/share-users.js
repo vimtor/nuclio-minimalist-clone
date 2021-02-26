@@ -4,15 +4,10 @@ import api from '../../helpers/api';
 import './share-users.css'
 import MultiSelect from "react-multi-select-component";
 
-
-   
   const ShareList = () => {
-   
     const {activeId} = useLists()
-
     const [emails, setEmails] = useState();
-    const [selected, setSelected] = useState([]); 
-
+    const [selected, setSelected] = useState([]);
 
     useEffect(() => {
       const getOwners = api.getOwners(activeId);
@@ -29,40 +24,32 @@ import MultiSelect from "react-multi-select-component";
         return {
           label: value,
           value: value,
-        }      
+        }
     };
 
-      const shareEmail = (userEmails) => {
+    const shareEmail = (userEmails) => {
+      const objectArray = Object.entries(userEmails);
+      let usersShare = [];
 
-        const objectArray = Object.entries(userEmails);
-        let usersShare = [];
-        
-        objectArray.forEach(([key, value]) => {
-          usersShare.push(value.label);
-        });
-
-        api.shareList(activeId, {userEmails: usersShare});
-        setSelected(userEmails);
-      
-
+      objectArray.forEach(([key, value]) => {
+        usersShare.push(value.label);
+      });
+      api.shareList(activeId, {userEmails: usersShare});
+      setSelected(userEmails);
     }
- 
-    if(!emails) return <h3>There aren't other users!</h3>;
-  
-    return (
 
-    
+    if(!emails.length) return <h3>There aren't other users!</h3>;
+
+    return (
        <div>
-             <MultiSelect
-              options={emails}
-              value={selected}
-              onChange={selected ? user => shareEmail(user) : []}
-              labelledBy={"Select"}
-            />
+         <MultiSelect
+          options={emails}
+          value={selected}
+          onChange={selected ? user => shareEmail(user) : []}
+          labelledBy={"Select"}
+        />
       </div>
-   
-          
     );
-     
+
   }
   export default ShareList;
