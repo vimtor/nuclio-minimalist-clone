@@ -38,15 +38,16 @@ const getListOwners = async (listId) => {
     return list.owners;
 }
 
-const shareList = async (userEmails, listId) =>{
+const shareList = async (userEmails, listId, userId) =>{
     let users = [];
     for (const email of userEmails) {
         const user = await userRepository.findByEmail(email)
         users.push(user);
     }
     const list = await listRepository.findById(listId);
-    const listOwners = [...list.owners, ...users];
-    await listRepository.updateById(listId, {owners: listOwners});
+    //cambiar este merge de array, por un update
+    users.push(userId);
+    await listRepository.updateById(listId, {owners: users});
 }
 
 export default {

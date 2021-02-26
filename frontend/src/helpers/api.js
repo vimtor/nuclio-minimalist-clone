@@ -68,18 +68,23 @@ const removeManyTasks = async (listId, filter) => {
       params: filter
   })
 }
-const getUserEmails = async (listId) => {
+const getEmails = async () => {
+    const emails = await api.get('/emails');
+    return emails;
+}
+const getOwners = async (listId) => {
   const users = await api.get(`/lists/${listId}/owners`);
   return users.data;
 }
 const shareList = async (listId, body) => {
-    await api.post(`/lists/${listId}/owners`, body);  
+    await api.post(`/lists/${listId}/share`, body);  
 }
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    getUserEmails,
+    getEmails,
+    getOwners,
     shareList,
     fetchLists,
     register,

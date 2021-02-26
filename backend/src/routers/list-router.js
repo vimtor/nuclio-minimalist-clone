@@ -71,15 +71,16 @@ router.post('/:listId/share', async (req, res) => {
     const listId = req.params.listId;
     const userEmails = req.body.userEmails;
     
-    await listService.shareList(userEmails, listId);
+    await listService.shareList(userEmails, listId, req.userId);
 
     res.status(200).end();
 }) 
 
+// Enpoint para los owners menos el logged
 router.get('/:listId/owners', async (req, res) => {
-    const owners = await listService.getListOwners(req.params.listId)
-    const emails = await userService.getEmailsToShare(owners, req.userId);
-    res.json(emails)
+    const allOwners = await listService.getListOwners(req.params.listId)
+    const otherOwners = await userService.getOwners(allOwners, req.userId);
+    res.json(otherOwners)
 })
 
 export default router

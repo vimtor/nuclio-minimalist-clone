@@ -7,44 +7,58 @@ import MultiSelect from "react-multi-select-component";
 
    
   const ShareList = () => {
+   
     const {activeId} = useLists()
-    const options = []
 
-    const convertArrayToObject = (value) => {
-      console.log(value);
-      return {
-        label: value,
-        value: value,
-      }      
+    const [emails, setEmails] = useState();
+    const [selected, setSelected] = useState([]); 
+
+
+    useEffect(() => {
+      const getOwners = api.getOwners(activeId);
+            getOwners.then( result => {
+            setSelected(result.map( email => convertArrayToObject(email)));
+        })
+      const getEmails = api.getEmails();
+            getEmails.then( result => {
+            setEmails(result.data.map( email => convertArrayToObject(email)));
+            })
+    },[activeId]);
+
+     const convertArrayToObject = (value) => {
+        return {
+          label: value,
+          value: value,
+        }      
     };
 
-    const getEmails = api.getUserEmails(activeId).then(result => (result.map(value => options.push(convertArrayToObject(value.email)))));
-    
-     
-    console.log(options);
-       
-    
-    const [emails, setEmails] = useState([]);
+      const shareEmail = (userEmails) => {
 
+        const objectArray = Object.entries(userEmails);
+        let usersShare = [];
+        
+        objectArray.forEach(([key, value]) => {
+          usersShare.push(value.label);
+        });
+
+        api.shareList(activeId, {userEmails: usersShare});
+        setSelected(userEmails);
+      
+
+    }
  
-    //console.log(emails);
-
-    const [selected, setSelected] = useState();
-     
-    if(!emails) return <h3>There are no other users!</h3>;
-
+    if(!emails) return <h3>There aren't other users!</h3>;
+  
     return (
 
     
        <div>
-          <h1>Select Users</h1>
-          <pre>{JSON.stringify(selected)}</pre>
-          <MultiSelect
-            options={options}
-            value={selected}
-            onChange={setSelected}
-            labelledBy={"Select"}
-          />
+             <MultiSelect
+              options={emails}
+              value={selected}
+              onChange={selected ? user => shareEmail(user) : []}
+              labelledBy={"Select"}
+            />
       </div>
    
           
