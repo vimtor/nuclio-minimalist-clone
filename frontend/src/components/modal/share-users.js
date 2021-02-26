@@ -38,7 +38,7 @@ import MultiSelect from "react-multi-select-component";
       setSelected(userEmails);
     }
 
-    if(!emails.length) return <h3>There aren't other users!</h3>;
+    if(!emails?.length) return <h3>There aren't other users!</h3>;
 
     return (
        <div>
