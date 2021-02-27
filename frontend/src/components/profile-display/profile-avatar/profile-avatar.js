@@ -20,7 +20,7 @@ const ProfileAvatar = ({preview, setPreview})=> {
                 onClose={onClose}
                 src={preview}
             />
-            {preview && <img src={preview} alt="Preview" />}
+            {preview && <img src={preview} alt="Choose avatar" />}
         </div>
     );
 }

@@ -37,12 +37,11 @@ const ProfileDisplayEdit = ({isOpen, setIsOpen, userId, updateProfile}) => {
                 <div className={styles.modalContent}>
                     <div className={styles.formHolder}>
                         <form>
-                            <div className={styles.fieldsHolder}>
-                                <input type="text" defaultValue={alias} placeHolder="Give me your alias" ref={aliasRef}
-                                       className={styles.alias}/>
+                            <div className={styles.aliasHolder}>
+                                <input type="text" defaultValue={alias} placeHolder="Give me your alias" ref={aliasRef} className={styles.alias}/>
                             </div>
-                            <div>
-                                <ProfileAvatar preview={preview} setPreview={setPreview} className={styles.avatar}/>
+                            <div className={styles.avatarHolder}>
+                                <ProfileAvatar preview={preview} setPreview={setPreview}/>
                             </div>
                         </form>
                     </div>
