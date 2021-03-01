@@ -4,6 +4,8 @@ import {encryptPassword} from "../helpers/password";
 const userSchema = new Schema({
     email: String,
     password: String,
+    alias: String,
+    avatar: Buffer,
     lists: [{type: Schema.Types.ObjectId, ref: 'List'}]
 })
 
@@ -45,7 +47,6 @@ const addListToUser = async (userId, listId) => {
   return userModel.findByIdAndUpdate(userId, {$push: {lists: listId}})
 }
 
-
 export default {
     create,
     updateById,
@@ -53,5 +54,5 @@ export default {
     removeListFromUsers,
     findByEmail,
     findById,
-    addListToUser
+    addListToUser,
 }

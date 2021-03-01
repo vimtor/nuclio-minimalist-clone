@@ -7,7 +7,7 @@ const router = Router()
 
 router.use(protect)
 
-router.param('listId',listPermissionRouter)
+router.param('listId', listPermissionRouter)
 
 router.get('/', async (req, res) => {
     const lists = await listService.getListsFromOwner(req.userId)
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:listId', async (req, res) => {
-    const list = await listService.getById(req.params.id)
+    const list = await listService.getById(req.params.listId)
     res.json(list)
 })
 

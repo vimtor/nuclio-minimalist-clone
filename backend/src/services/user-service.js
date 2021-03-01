@@ -31,7 +31,18 @@ const login = async ({email, password}) => {
     return null
 }
 
+const updateProfile = async (userId, user) => {
+    return userRepository.updateById(userId, user);
+}
+
+const getUser = async (userId) => {
+    return userRepository.findById(userId);
+}
+
 export default {
     register,
-    login
+    login,
+    updateProfile,
+    getUser,
 }
+

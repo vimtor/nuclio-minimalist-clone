@@ -1,5 +1,4 @@
 import {useContext} from "react";
-import {AuthContext} from "../contexts/auth-context";
 import {ListsContext} from "../contexts/lists-context";
 
 const useLists = () => {

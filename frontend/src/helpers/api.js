@@ -25,6 +25,11 @@ const fetchOneList = async (id) => {
     return data
 }
 
+const fetchOneUser = async (id) => {
+    const {data} = await api.get(`/users/${id}`)
+    return data
+}
+
 const createList = async (body = {}) => {
     const {data} = await api.post('/lists', body)
     return data;
@@ -53,6 +58,11 @@ const updateTask = async (listId, taskId, body) => {
     return data
 }
 
+const updateUserProfile = async (userId, alias, avatar) => {
+    const {data} = await api.put(`/users/${userId}`, {alias: alias, avatar: avatar})
+    return data
+}
+
 const register = async ({email, password}) => {
     const {data} = await api.post('/register', {email, password})
     return data.token;
@@ -76,8 +86,10 @@ export default {
     createList,
     removeList,
     updateList,
+    updateUserProfile,
     createTask,
     fetchOneList,
+    fetchOneUser,
     updateTask,
     removeTask,
     removeManyTasks,
