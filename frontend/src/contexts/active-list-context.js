@@ -47,12 +47,12 @@ const ActiveListProvider = ({children}) => {
     }
 
     const uncheckTask = async (id) => {
-        const newList = await api.updateTask(activeId, id, {completed: false})
+        const newList = await api.updateTask(activeId, id, {completed: false, completed_date: null})
         setActiveList(newList)
     }
 
     const completeTask = async (id) => {
-        const newList = await api.updateTask(activeId, id, {completed: true})
+        const newList = await api.updateTask(activeId, id, {completed: true, completed_date: new Date()})
         setActiveList(newList)
     }
 
