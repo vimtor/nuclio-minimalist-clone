@@ -1,0 +1,70 @@
+.modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 400px;
+    outline: none;
+    background-color: rgba(255, 255,255, 1);
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.container {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.modalContent {
+    widght: 400px;
+    margin-top: 20px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px;
+    background-color: rgba(45, 138,230, 0.5);
+    font-style: italic;
+    font-weight: bold;
+    width: 100%;
+}
+
+.formHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 300px;
+}
+
+.aliasHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alias {
+    border: 0px;
+    background-color: rgba(255, 255,255, 1);
+    -webkit-box-shadow: 1px 1px 3px 4px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    1px 1px 3px 4px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         1px 1px 3px 4px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.avatarHolder {
+    margin-top: 40px;
+}
+
+.buttonHolder {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    background-color: rgba(45, 138,230, 1);
+}

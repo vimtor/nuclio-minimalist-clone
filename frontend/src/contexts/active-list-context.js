@@ -1,3 +1,4 @@
+import React from "react";
 import {createContext, useEffect, useState} from 'react'
 import api from '../helpers/api'
 import useLists from "../hooks/use-lists";
@@ -14,6 +15,8 @@ export const ActiveListContext = createContext({
     uncheckTask: () => {
     },
     completeTask: () => {
+    },
+    updateTasksOrder: () => {
     }
 })
 
@@ -31,8 +34,17 @@ const ActiveListProvider = ({children}) => {
         }
     }, [activeId])
 
+    const updateTasksOrder = async (newTaskList) => {
+        await api.updateList(activeId, {tasks: newTaskList})
+    }
+
     const updateTitle = (title) => {
         updateList(activeId, {title})
+    }
+
+    const updateDueDateTask = async (id, dueDate) => {
+        const newList = await api.updateTask(activeId, id, {dueDate: dueDate})
+        setActiveList(newList)
     }
 
     const createTask = async (title) => {
@@ -68,9 +80,10 @@ const ActiveListProvider = ({children}) => {
         })
     }
 
+
     return (
         <ActiveListContext.Provider
-            value={{loading, ...activeList, updateTitle, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask}}>
+            value={{loading, ...activeList, updateTitle, updateDueDateTask, removeTask, refreshList, removeCompletedTasks, createTask, completeTask, uncheckTask, updateTasksOrder}}>
             {children}
         </ActiveListContext.Provider>
     )

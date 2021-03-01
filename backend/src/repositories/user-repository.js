@@ -1,10 +1,11 @@
 import {Schema, model} from "mongoose";
 import {encryptPassword} from "../helpers/password";
-import listRepository from './list-repository';
 
 const userSchema = new Schema({
     email: String,
     password: String,
+    alias: String,
+    avatar: Buffer,
     lists: [{type: Schema.Types.ObjectId, ref: 'List'}]
 })
 
@@ -17,14 +18,6 @@ userSchema.pre("save", async function (next) {
 })
 
 const userModel = model('User', userSchema)
-
-const getUser = async (id) => {
-  return userModel.find({_id: id});
-}
-
-const getAllUsers = async (id) => {
-  return userModel.find({_id: {$ne: id}});
-}
 
 const existsById = async (id) => {
   return userModel.exists({_id: id})
@@ -54,15 +47,12 @@ const addListToUser = async (userId, listId) => {
   return userModel.findByIdAndUpdate(userId, {$push: {lists: listId}})
 }
 
-
 export default {
-    getAllUsers, 
-    getUser,
     create,
     updateById,
     existsById,
     removeListFromUsers,
     findByEmail,
     findById,
-    addListToUser
+    addListToUser,
 }

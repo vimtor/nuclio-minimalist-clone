@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./card-footer.module.css";
 import useActiveList from "../../../hooks/use-active-list";
 

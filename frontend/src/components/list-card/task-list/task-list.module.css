@@ -1,16 +1,27 @@
 .list {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    align-items: center;
 }
 
-.item {
+.left {
     padding: 1em;
     display: flex;
     justify-content: flex-start;
-    border-bottom: 1px solid lightgray;
+    align-items: center;
+    min-width: 200px;
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
 
 .cross {
     margin-left: auto;
+    display: flex;
+    justify-content: right;
     visibility: hidden;
     fill: gray;
     opacity: 0;
@@ -18,12 +29,12 @@
     cursor: pointer;
 }
 
-.item:hover > .cross {
+.list:hover > .cross {
     visibility: visible;
     opacity: 1;
 }
 
-.item > input[type=checkbox] {
+.left > input[type=checkbox] {
     margin-right: 1em;
     width: 16px;
     height: 16px;

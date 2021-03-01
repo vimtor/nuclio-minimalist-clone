@@ -6,6 +6,12 @@ const getListsFromOwner = async (ownerId) => {
     return user.lists
 }
 
+const getListFromOwner = async (ownerId, listId) => {
+    const list = await listRepository.findById(listId);
+    if (list.owners.contain(ownerId)) return list;
+    return null;
+}
+
 const create = async ({owner, title, tasks}) => {
     const list = await listRepository.create({
         title: title || "Untitled tasks",
@@ -52,6 +58,7 @@ const shareList = async (userEmails, listId, userId) =>{
 
 export default {
     getListsFromOwner,
+    getListFromOwner,
     getById,
     create,
     removeById,

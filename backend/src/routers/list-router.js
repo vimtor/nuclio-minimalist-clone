@@ -2,18 +2,21 @@ import {Router} from 'express'
 import protect from '../middlewares/protect'
 import listService from '../services/list-service'
 import userService from '../services/user-service'
+import listPermissionRouter from '../middlewares/permission-list';
 
 const router = Router()
 
 router.use(protect)
+
+router.param('listId', listPermissionRouter)
 
 router.get('/', async (req, res) => {
     const lists = await listService.getListsFromOwner(req.userId)
     res.json(lists)
 })
 
-router.get('/:id', async (req, res) => {
-    const list = await listService.getById(req.params.id)
+router.get('/:listId', async (req, res) => {
+    const list = await listService.getById(req.params.listId)
     res.json(list)
 })
 
@@ -22,12 +25,12 @@ router.post('/', async (req, res) => {
     res.status(201).json(list)
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:listId', async (req, res) => {
     await listService.removeById(req.params.id)
     res.status(204).end()
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:listId', async (req, res) => {
     const list = await listService.updateById(req.params.id, req.body)
     res.json(list)
 })

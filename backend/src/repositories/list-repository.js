@@ -4,6 +4,7 @@ import userRepository from './user-repository'
 export const taskSchema = new Schema({
     title: String,
     completed: Boolean,
+    dueDate: Date,
 })
 
 const listSchema = new Schema({
@@ -73,5 +74,3 @@ export default {
     removeTask,
     removeAllTasks
 }
-
-

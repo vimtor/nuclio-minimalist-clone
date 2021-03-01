@@ -1,0 +1,15 @@
+.datepicker{
+    max-width: 100px;
+    border: none;
+    font-size: 0.9em;
+}
+
+.datepicker > close-icon{
+    padding: 3em;
+}
+
+.expired {
+    color: red;
+    padding: 1em;
+    font-style: italic;
+}

@@ -30,19 +30,14 @@ const login = async ({email, password}) => {
     }
     return null
 }
-const getUsersEmails = async (id) => {
-    const usersInfo = await userRepository.getAllUsers(id);
-    
-    const length = Object.keys(usersInfo).length;
-    let emails = [];
 
-    for (let i = 0; i < length; i++){
-        emails.push(usersInfo[i].email);
-    }
-   
-    return emails;
+const updateProfile = async (userId, user) => {
+    return userRepository.updateById(userId, user);
 }
 
+const getUser = async (userId) => {
+    return userRepository.findById(userId);
+}
 const getOwners = async (owners, id) => {
     let ownersEmails = [];
        
@@ -64,9 +59,12 @@ const getOwners = async (owners, id) => {
   
     return ownersEmails;
 }
+
 export default {
-    getUsersEmails,
-    getOwners,
     register,
-    login
+    getOwners,
+    login,
+    updateProfile,
+    getUser,
 }
+
