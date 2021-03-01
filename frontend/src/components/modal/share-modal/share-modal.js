@@ -20,11 +20,10 @@ const ShareModal = ({modalIsOpen, toggleModal}) => {
           overlayClassName={styles.Overlay}
         >   
             <div className={styles.buttonContainer}>   
-                <span className={styles.message}>Select users to share!</span>
-                <button className={styles.button} onClick={closeModal}><FontAwesomeIcon icon={faTimes} /></button>
+                <span className={styles.message}>Share this list</span>
             </div>
             <div className={styles.shareContainer}>
-                <ShareList />
+                <ShareList closeModal={closeModal}/>
             </div>  
         </Modal>
     )

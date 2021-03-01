@@ -2,22 +2,19 @@ import React, {useEffect, useState} from 'react';
 import useLists from "../../../hooks/use-lists";
 import api from '../../../helpers/api';
 import './share-list.css'
-import MultiSelect from "react-multi-select-component";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
-  const ShareList = () => {
+  const ShareList = ({closeModal}) => {
     const {activeId} = useLists()
     const [emails, setEmails] = useState();
-    const [selected, setSelected] = useState([]);
+    const [owners, setOwners] = useState([]);
 
     useEffect(() => {
       const getOwners = api.getOwners(activeId);
             getOwners.then( result => {
-            setSelected(result.map( email => convertArrayToObject(email)));
+              setOwners(result.map( email => convertArrayToObject(email)));
         })
-      const getEmails = api.getEmails();
-            getEmails.then( result => {
-            setEmails(result.data.map( email => convertArrayToObject(email)));
-            })
     },[activeId]);
 
      const convertArrayToObject = (value) => {
@@ -35,19 +32,25 @@ import MultiSelect from "react-multi-select-component";
         usersShare.push(value.label);
       });
       api.shareList(activeId, {userEmails: usersShare});
-      setSelected(userEmails);
+      setOwners(userEmails);
+      closeModal();
     }
 
-    if(!emails?.length) return <h3>There aren't other users!</h3>;
+    console.log(owners);
+    if(!owners?.length) return <h3>There aren't other users!</h3>;
 
     return (
        <div>
-         <MultiSelect
-          options={emails}
-          value={selected}
-          onChange={selected ? user => shareEmail(user) : []}
-          labelledBy={"Select"}
-        />
+          {/*Lista de los owners */}
+          <div>
+            <FontAwesomeIcon icon={faUserCircle} />
+            {owners.map(owner => <span>{owner.value}</span>)}
+          </div>    
+         <div>
+           <FontAwesomeIcon icon={faUserPlus} />
+           <input placeholder="Enter email address"></input>
+         </div>
+         <button onClick={shareEmail}>done</button>
       </div>
     );
 
