@@ -14,16 +14,9 @@ router.put('/:userId', async (req, res) => {
 
 })
 
-//TODO remove this method?
 router.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
     const users = await userService.getUser(userId)
-    res.json(users)
-})
-
-//TODO remove this method?
-router.get('/', async (req, res) => {
-    const users = await userService.getAllUsers()
     res.json(users)
 })
 

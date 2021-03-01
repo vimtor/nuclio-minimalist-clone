@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import profileImage from "../../images/profile-placeholder.jpg";
 import useUsers from "../../hooks/use-users";
 import useAuth from "../../hooks/use-auth";
@@ -16,8 +16,7 @@ const ProfileDisplay = () => {
     const {logout} = useAuth()
     const [isOpen, setIsOpen] = useState(false);
 
-    let avatar64 = [];
-    if (avatar) avatar64 = Buffer.from(avatar);
+    const avatar64 = useMemo(() => avatar ? Buffer.from(avatar): [], [avatar]);
 
     const handleLogout = () => {
         logout()

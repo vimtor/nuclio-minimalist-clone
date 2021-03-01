@@ -35,21 +35,14 @@ const updateProfile = async (userId, user) => {
     return userRepository.updateById(userId, user);
 }
 
-//TODO remove this function?
 const getUser = async (userId) => {
     return userRepository.findById(userId);
-}
-
-//TODO remove this function?
-const getAllUsers = async () => {
-    return userRepository.findAll();
 }
 
 export default {
     register,
     login,
     updateProfile,
-    getUser,           //TODO remove this line?
-    getAllUsers,       //TODO remove this line?
+    getUser,
 }
 

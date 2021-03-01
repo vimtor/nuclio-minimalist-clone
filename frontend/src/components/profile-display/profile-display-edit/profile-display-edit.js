@@ -9,7 +9,7 @@ const ProfileDisplayEdit = ({isOpen, setIsOpen, userId, updateProfile}) => {
     const aliasRef = useRef();
     const {alias, avatar} = useUsers()
 
-    const [preview, setPreview] = useState(avatar);       //Collect data
+    const [preview, setPreview] = useState(null);       //Collect data
 
     const handleUpdate = () => {
         updateProfile(userId, aliasRef.current.value, preview);
@@ -20,7 +20,7 @@ const ProfileDisplayEdit = ({isOpen, setIsOpen, userId, updateProfile}) => {
     }
 
     useEffect(() => {
-        setPreview(avatar);
+        if(avatar) setPreview(Buffer.from(avatar));
     }, [avatar])
 
     return (
