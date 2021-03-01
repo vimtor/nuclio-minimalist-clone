@@ -11,12 +11,15 @@ const ProfileDisplay = () => {
         logout()
         history.push("/login")
     }
+    const redirectToProfile = () => {
+        history.push("/profile")
+    }
 
     return (
         <section className="profile-display-container">
             <img className="profile-display-image" src={profileImage} alt="profile image"/>
             <div className="profile-display-content">
-                <h3 className="profile-display-name">Anonymous</h3>
+                <h3 className="profile-display-name" onClick={redirectToProfile}>Anonymous</h3>
                 <button className="profile-display-button" onClick={handleLogout}>Sign out</button>
             </div>
         </section>

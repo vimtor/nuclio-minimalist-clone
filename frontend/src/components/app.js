@@ -7,6 +7,7 @@ import ProtectedLogged from "./protected-logged/protected-logged";
 import LoginPage from "../pages/login/login-page";
 import ListsProvider from "../contexts/lists-context";
 import { Redirect } from 'react-router-dom';
+import ProfilePage from "../pages/profile/profile-page";
 
 const App = () => (
     <BrowserRouter>
@@ -21,6 +22,7 @@ const App = () => (
                 </Route>
                 <ListsProvider>
                     <ProtectedRoute path="/lists" component={ListPage} />
+                    <ProtectedRoute path="/profile" component={ProfilePage} />
                 </ListsProvider>
             </Switch>
         </AuthProvider>
