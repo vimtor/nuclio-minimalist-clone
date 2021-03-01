@@ -1,10 +1,10 @@
 import Chart from "react-apexcharts";
-import LineChartOptions from "./completed-tasks-graph.options";
-import useTasks from "../../hooks/use-tasks";
+import LineChartOptions from "./completed-tasks-chart.options";
+import useChart from "../../hooks/use-chart";
 
-export default function CompletedTasksGraph() {
+export default function CompletedTasksChart() {
 
-    let {chartTasks} = useTasks();
+    let {chartTasks} = useChart();
     const chartData = {
         createdArray: [],
         completedArray: [],

@@ -1,15 +1,15 @@
 import {createContext, useEffect, useState} from 'react'
 import api from '../helpers/api'
-import useTasks from "../hooks/use-tasks";
+import useChart from "../hooks/use-chart";
 
-export const TasksContext = createContext({
+export const ChartContext = createContext({
     loading: false,
     title: "",
     chartTasks: [],
     _id: null,
 })
 
-const TasksProvider = ({children}) => {
+const ChartProvider = ({children}) => {
     const [loading, setLoading] = useState(true)
     const [chartTasks, setChartTasks] = useState(null)
 
@@ -21,12 +21,12 @@ const TasksProvider = ({children}) => {
     }, [])
 
     return (
-        <TasksContext.Provider
+        <ChartContext.Provider
             value={{loading, chartTasks}}>
             {children}
-        </TasksContext.Provider>
+        </ChartContext.Provider>
     )
 }
 
-export default TasksProvider
+export default ChartProvider
 

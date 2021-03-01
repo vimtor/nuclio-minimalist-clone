@@ -3,8 +3,8 @@ import styles from './profile-page.module.css';
 import profileImage from "../../images/profile-placeholder.jpg";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEdit} from '@fortawesome/free-solid-svg-icons'
-import CompletedTasksGraph from "../../components/completed-tasks-graph/completed-tasks-graph";
-import TasksProvider from "../../contexts/tasks-context";
+import CompletedTasksChart from "../../components/completed-tasks-chart/completed-tasks-chart";
+import ChartProvider from "../../contexts/chart-context";
 
 
 const ProfilePage = () => {
@@ -32,9 +32,9 @@ const ProfilePage = () => {
                         </div>
 
                         <div className={styles.moreInfo}>
-                            <TasksProvider>
-                                <CompletedTasksGraph/>
-                            </TasksProvider>
+                            <ChartProvider>
+                                <CompletedTasksChart/>
+                            </ChartProvider>
                         </div>
                     </div>
                 </div>

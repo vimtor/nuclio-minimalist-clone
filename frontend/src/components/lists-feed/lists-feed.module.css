@@ -14,7 +14,9 @@
     padding: 1.5em;
     cursor: pointer;
     color: gray;
+    margin:0px;
     margin-top: 2em;
+    width:100%
 }
 
 .button:focus,

@@ -1,12 +1,12 @@
 import {useContext} from "react";
-import {TasksContext} from "../contexts/tasks-context";
+import {ChartContext} from "../contexts/chart-context";
 
-const useTasks = () => {
-    const context = useContext(TasksContext)
+const useChart = () => {
+    const context = useContext(ChartContext)
     if (!context) {
         throw Error('The hook useLists must be used within ListsProvider')
     }
     return context
 }
 
-export default useTasks
+export default useChart
