@@ -40,7 +40,12 @@ const updateList = async (id, body = {}) => {
 }
 
 const createTask = async (listId, title) => {
-    const {data} = await api.post(`/lists/${listId}/tasks`, { title })
+    const tasksData = {
+        title: title,
+        created_date: new Date(),
+        completed: false
+    }
+    const {data} = await api.post(`/lists/${listId}/tasks`, tasksData)
     return data
 }
 
@@ -69,6 +74,11 @@ const removeManyTasks = async (listId, filter) => {
   })
 }
 
+const getChartTasks = async () => {
+    const {data} = await api.get('/chart')
+    return data
+}
+
 export default {
     fetchLists,
     register,
@@ -81,6 +91,7 @@ export default {
     updateTask,
     removeTask,
     removeManyTasks,
+    getChartTasks
 }
 
 
