@@ -32,12 +32,7 @@ export default function CompletedTasksChart() {
     ];
 
     const options = LineChartOptions;
-    options.xaxis = {
-        categories: chartData.dates,
-        title: {
-            text: 'Dates'
-        }
-    };
+    options.labels = chartData.dates;
     return (
         <>
             <Chart
