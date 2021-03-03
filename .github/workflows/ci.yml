@@ -10,6 +10,6 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
       - name: Install Dependencies
-        run: npm run bootstrap
+        run: npm install
       - name: Check Format
         run: npm run check
