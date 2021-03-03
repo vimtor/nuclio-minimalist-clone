@@ -6,9 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: action/checkout@v2
+        uses: actions/checkout@v2
       - name: Setup Node.js
-        uses: action/setup-node@v1
+        uses: actions/setup-node@v1
       - name: Install Dependencies
         run: npm run bootstrap
       - name: Check Format
