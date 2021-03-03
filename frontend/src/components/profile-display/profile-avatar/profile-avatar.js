@@ -7,7 +7,6 @@ const ProfileAvatar = ({preview, setPreview})=> {
         setPreview(null);
     }
     function onCrop(pv) {
-        console.log(`onCrop: ${pv}`)
         setPreview(pv);
     }
 
