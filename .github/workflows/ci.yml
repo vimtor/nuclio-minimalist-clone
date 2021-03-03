@@ -12,4 +12,4 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Check Format
-        run: npm run check
+        run: npm run format:check
