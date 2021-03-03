@@ -1,16 +1,15 @@
-import {Router} from 'express'
-import protect from '../middlewares/protect'
-import chartService from '../services/chart-service'
-import listService from "../services/list-service";
+import { Router } from "express";
+import protect from "../middlewares/protect";
+import chartService from "../services/chart-service";
 
-const router = Router()
+const router = Router();
 
-router.use(protect)
+router.use(protect);
 
-router.get('/', async (req, res) => {
-    const lists = await chartService.getChartTasks(req.userId)
-    // const lists = await listService.getListsFromOwner(req.userId)
-    res.json(lists)
-})
+router.get("/", async (req, res) => {
+  const lists = await chartService.getChartTasks(req.userId);
+  // const lists = await listService.getListsFromOwner(req.userId)
+  res.json(lists);
+});
 
-export default router
+export default router;

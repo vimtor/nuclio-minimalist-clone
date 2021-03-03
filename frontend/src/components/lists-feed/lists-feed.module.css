@@ -1,26 +1,25 @@
 .title {
-    margin-top: 2rem;
-    padding: 0 1.5em;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    margin-bottom: 1em;
-    font-weight: var(--font-weight-light);
+  margin-top: 2rem;
+  padding: 0 1.5em;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 1em;
+  font-weight: var(--font-weight-light);
 }
 
 .button {
-    background: none;
-    outline: none;
-    border: none;
-    padding: 1.5em;
-    cursor: pointer;
-    color: gray;
-    margin:0px;
-    margin-top: 2em;
-    width:100%
+  background: none;
+  outline: none;
+  border: none;
+  padding: 1.5em;
+  cursor: pointer;
+  color: gray;
+  margin: 0px;
+  margin-top: 2em;
+  width: 100%;
 }
 
 .button:focus,
 .button:hover {
-    opacity: 0.75;
+  opacity: 0.75;
 }
-

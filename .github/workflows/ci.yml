@@ -1,0 +1,17 @@
+name: Continuous Integration
+on: pull_request
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+      - name: Install Dependencies
+        run: npm install
+      - name: Check Format
+        run: npm run format:check
+      - name: Run ESlint
+        run: npm run lint

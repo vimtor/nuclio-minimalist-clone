@@ -1,21 +1,20 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1em;
-    border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  border-bottom: 1px solid lightgray;
 }
 
 .header > input {
-    border: none;
-    padding: 0;
-    margin: 0;
-    outline: none;
-    font-size: 1.15rem;
-    font-weight: bold;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-size: 1.15rem;
+  font-weight: bold;
 }
 
 .header > div {
-    display: flex;
-    gap: 1em;
+  display: flex;
+  gap: 1em;
 }
-
