@@ -1,0 +1,15 @@
+name: Continuous Integration
+on: pull_request
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: action/checkout@v2
+      - name: Setup Node.js
+        uses: action/setup-node@v1
+      - name: Install Dependencies
+        run: npm run bootstrap
+      - name: Check Format
+        run: npm run check
