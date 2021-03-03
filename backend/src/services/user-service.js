@@ -11,8 +11,8 @@ const register = async ({email, password}) => {
     const list = await listRepository.create({
         title: 'My tasks',
         tasks: [
-            { title: 'Do dishes', completed: false },
-            { title: 'Walk the dog', completed: true },
+            { title: 'Do dishes', completed: false, created_date: new Date() },
+            { title: 'Walk the dog', completed: true, created_date: new Date() },
         ]
     })
 

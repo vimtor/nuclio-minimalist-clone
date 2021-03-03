@@ -22,6 +22,9 @@ const ProfileDisplay = () => {
         logout()
         history.push("/login")
     }
+    const redirectToProfile = () => {
+        history.push("/profile")
+    }
 
     const handleOpenEditProfile = () => {
         setIsOpen(true);
