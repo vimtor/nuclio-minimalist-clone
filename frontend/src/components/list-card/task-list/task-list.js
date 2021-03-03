@@ -7,10 +7,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const TaskList = () => {
 
-    let {removeTask, tasks, uncheckTask, updateDueDateTask, completeTask, updateTasksOrder} = useActiveList()
-
-    //TODO 1- remove if next line, 2- set const instead let in previous instruction and 3- set tasks?.map instead of tasks.map
-    if (! tasks) tasks = [];
+    const {removeTask, tasks, uncheckTask, updateDueDateTask, completeTask, updateTasksOrder} = useActiveList()
 
     const handleOnDragEnd = (result) => {
         if (!result.destination) return;
@@ -26,7 +23,7 @@ const TaskList = () => {
                 <Droppable droppableId="task">
                      {(provided) =>(
                       <ul {...provided.droppableProps} ref={provided.innerRef}>
-                             { tasks.map(({_id, title, completed, dueDate}, index) => {
+                             { tasks?.map(({_id, title, completed, dueDate}, index) => {
                                  return (
                                      <Draggable  key={_id}  draggableId={_id} index={index}>
                                          {(provided) => (
