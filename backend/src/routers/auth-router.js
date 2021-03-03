@@ -1,6 +1,7 @@
 import {Router} from 'express'
 import userService from '../services/user-service'
 import {createToken} from "../helpers/token";
+import { sendEmail } from "../helpers/mail"
 
 const router = Router()
 
@@ -11,6 +12,11 @@ router.post('/register', async (req, res) => {
         return
     }
     const token = await createToken({ id: user._id })
+
+    //TODO Enhance result returned to fronted: how can we return a warning message?
+    const userData = await userService.getUser(user._id);
+    sendEmail(userData.email).then((value) => console.log(`sendEmail result: ${value}`));
+    console.log('after sendEmail');     //work well
 
     res.json({token})
 })
