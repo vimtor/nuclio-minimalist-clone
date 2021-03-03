@@ -67,6 +67,8 @@ const removeAllTasks = async (listId, filter) => {
 
 const getAllTasks = async (user_id) => {
   let response = {};
+  let a = 1;
+  console.log(a);
   await listModel.find({ owners: { $in: [user_id] } }).then((lists) => {
     lists.map((list) => {
       list.tasks.map((task) => {

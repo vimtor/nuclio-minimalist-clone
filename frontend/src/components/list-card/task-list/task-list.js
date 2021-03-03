@@ -13,6 +13,7 @@ const TaskList = () => {
     updateDueDateTask,
     completeTask,
     updateTasksOrder,
+    setTasks,
   } = useActiveList();
 
   const handleOnDragEnd = (result) => {
@@ -21,7 +22,7 @@ const TaskList = () => {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     updateTasksOrder(items);
-    tasks = items;
+    setTasks(items);
   };
 
   return (

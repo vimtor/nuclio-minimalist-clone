@@ -4,7 +4,9 @@
   "description": "Minimalist todo app clone for Nuclio Digital School",
   "scripts": {
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "husky": {
     "hooks": {
@@ -13,6 +15,7 @@
   },
   "devDependencies": {
     "eslint": "^7.21.0",
+    "eslint-plugin-react": "^7.22.0",
     "husky": "^4.3.8",
     "prettier": "^2.2.1"
   }

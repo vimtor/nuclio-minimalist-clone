@@ -13,6 +13,7 @@ export const ActiveListContext = createContext({
   uncheckTask: () => {},
   completeTask: () => {},
   updateTasksOrder: () => {},
+  setTasks: () => {},
 });
 
 const ActiveListProvider = ({ children }) => {
@@ -81,11 +82,19 @@ const ActiveListProvider = ({ children }) => {
     });
   };
 
+  const setTasks = (newTasks) => {
+    setActiveList({
+      ...activeList,
+      tasks: newTasks,
+    });
+  };
+
   return (
     <ActiveListContext.Provider
       value={{
         loading,
         ...activeList,
+        setTasks,
         updateTitle,
         updateDueDateTask,
         removeTask,

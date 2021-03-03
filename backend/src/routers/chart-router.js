@@ -1,7 +1,6 @@
 import { Router } from "express";
 import protect from "../middlewares/protect";
 import chartService from "../services/chart-service";
-import listService from "../services/list-service";
 
 const router = Router();
 

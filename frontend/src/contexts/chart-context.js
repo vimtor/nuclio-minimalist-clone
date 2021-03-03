@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import api from "../helpers/api";
-import useChart from "../hooks/use-chart";
 
 export const ChartContext = createContext({
   loading: false,
