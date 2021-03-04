@@ -1,58 +1,58 @@
-import {Schema, model} from "mongoose";
-import {encryptPassword} from "../helpers/password";
+import { Schema, model } from "mongoose";
+import { encryptPassword } from "../helpers/password";
 
 const userSchema = new Schema({
-    email: String,
-    password: String,
-    alias: String,
-    avatar: Buffer,
-    lists: [{type: Schema.Types.ObjectId, ref: 'List'}]
-})
+  email: String,
+  password: String,
+  alias: String,
+  avatar: Buffer,
+  lists: [{ type: Schema.Types.ObjectId, ref: "List" }],
+});
 
 userSchema.pre("save", async function (next) {
-    const user = this;
-    if (user.isModified('password')) {
-        user.password = await encryptPassword(user.password)
-    }
-    next();
-})
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = await encryptPassword(user.password);
+  }
+  next();
+});
 
-const userModel = model('User', userSchema)
+const userModel = model("User", userSchema);
 
 const existsById = async (id) => {
-  return userModel.exists({_id: id})
-}
+  return userModel.exists({ _id: id });
+};
 
 const create = async (fields) => {
-    return userModel.create(fields)
-}
+  return userModel.create(fields);
+};
 
 const updateById = async (id, fields) => {
-    return userModel.findByIdAndUpdate(id, fields)
-}
+  return userModel.findByIdAndUpdate(id, fields);
+};
 
 const removeListFromUsers = async (listId) => {
-  return userModel.updateMany({lists: listId}, {$pull: {lists: listId}})
-}
+  return userModel.updateMany({ lists: listId }, { $pull: { lists: listId } });
+};
 
 const findByEmail = async (email) => {
-  return userModel.findOne({email})
-}
+  return userModel.findOne({ email });
+};
 
 const findById = async (id) => {
-    return userModel.findById(id).populate("lists", "title")
-}
+  return userModel.findById(id).populate("lists", "title");
+};
 
 const addListToUser = async (userId, listId) => {
-  return userModel.findByIdAndUpdate(userId, {$push: {lists: listId}})
-}
+  return userModel.findByIdAndUpdate(userId, { $push: { lists: listId } });
+};
 
 export default {
-    create,
-    updateById,
-    existsById,
-    removeListFromUsers,
-    findByEmail,
-    findById,
-    addListToUser,
-}
+  create,
+  updateById,
+  existsById,
+  removeListFromUsers,
+  findByEmail,
+  findById,
+  addListToUser,
+};
