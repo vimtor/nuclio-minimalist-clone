@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(authRouter);
 app.use("/lists", listRouter);
 app.use("/users", userRouter);
-app.use("/chart", chartRouter);
+app.use("/charts", chartRouter);
 
 app.use(errorHandler);
 

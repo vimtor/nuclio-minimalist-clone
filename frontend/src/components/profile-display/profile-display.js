@@ -16,8 +16,6 @@ const ProfileDisplay = () => {
   const { logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
-  const avatar64 = useMemo(() => (avatar ? Buffer.from(avatar) : []), [avatar]);
-
   const handleLogout = () => {
     logout();
     history.push("/login");
@@ -27,28 +25,17 @@ const ProfileDisplay = () => {
     setIsOpen(true);
   };
 
-  const CurrentImage = () => {
-    if (!avatar)
-      return (
-        <img
-          className={styles.image}
-          src={Buffer.from(profileImage)}
-          alt="profile image"
-        />
-      );
-    return <img className={styles.image} src={avatar64} alt="profile image" />;
-  };
-
   return (
     <section className={styles.container}>
-      <CurrentImage />
+      <img
+        className={styles.image}
+        src={Buffer.from(avatar || profileImage)}
+        alt="profile image"
+      />
       <div className={styles.content}>
         <div className={styles.right}>
           <h3 className={styles.name}>{alias}</h3>
-          <EditButton
-            onClick={() => handleOpenEditProfile()}
-            className={styles.pen}
-          />
+          <EditButton onClick={handleOpenEditProfile} className={styles.pen} />
         </div>
         <button className={styles.button} onClick={handleLogout}>
           Sign out

@@ -2,12 +2,13 @@ import React from "react";
 import Avatar from "react-avatar-edit";
 
 const ProfileAvatar = ({ preview, setPreview }) => {
-  function onClose() {
+  const onClose = () => {
     setPreview(null);
-  }
-  function onCrop(pv) {
+  };
+
+  const onCrop = (pv) => {
     setPreview(pv);
-  }
+  };
 
   return (
     <div>

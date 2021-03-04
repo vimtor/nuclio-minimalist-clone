@@ -88,7 +88,7 @@ const removeManyTasks = async (listId, filter) => {
 };
 
 const getChartTasks = async () => {
-  const { data } = await api.get("/chart");
+  const { data } = await api.get("/charts");
   return data;
 };
 
