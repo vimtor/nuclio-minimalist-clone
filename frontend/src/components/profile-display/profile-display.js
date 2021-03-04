@@ -7,6 +7,7 @@ import styles from "./profile-display.module.css";
 import EditButton from "../edit-button/edit-button";
 import ProfileDisplayEdit from "./profile-display-edit/profile-display-edit";
 import Modal from "react-modal";
+import ProfileImage from "../profile-image/profile-image";
 
 Modal.setAppElement("#root");
 
@@ -27,11 +28,7 @@ const ProfileDisplay = () => {
 
   return (
     <section className={styles.container}>
-      <img
-        className={styles.image}
-        src={Buffer.from(avatar || profileImage)}
-        alt="profile image"
-      />
+      <ProfileImage avatar={avatar} className={styles.image}/>
       <div className={styles.content}>
         <div className={styles.right}>
           <h3 className={styles.name}>{alias}</h3>
