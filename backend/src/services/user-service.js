@@ -38,31 +38,9 @@ const updateProfile = async (userId, user) => {
 const getUser = async (userId) => {
     return userRepository.findById(userId);
 }
-const getOwners = async (owners, id) => {
-    let ownersEmails = [];
-       
-    // Email del user para filtrar los emails menos quien está logged
-    const userInfo = await userRepository.getUser(id);
-    const userLoggedEmail = userInfo[0].email;
-        
-    //  Devolver los Owners de la lista, si no está logged y es Owner va dentro de Owners emails
-    await Promise.all(owners.map(async id => {
-        
-        const response = userRepository.findById(id);
-        const user = await response;
-        if(user.email !== userLoggedEmail){
-            ownersEmails.push(user.email);
-            }
-        }
-
-    ))
-  
-    return ownersEmails;
-}
 
 export default {
     register,
-    getOwners,
     login,
     updateProfile,
     getUser,

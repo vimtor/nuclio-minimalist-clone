@@ -40,20 +40,32 @@ const removeTask = listRepository.removeTask
 const removeAllTasks = listRepository.removeAllTasks
 
 const getListOwners = async (listId) => {
+    let  ownersInfo = [];
     const list = await listRepository.findById(listId);
-    return list.owners;
+    const ownersId = list.owners;
+   
+    await Promise.all(ownersId.map(async id => {  
+        const response = userRepository.findById(id);
+        const user = await response;
+        ownersInfo.push({id: id, email: user.email})
+       }));
+       
+    return ownersInfo;
 }
 
-const shareList = async (userEmails, listId, userId) =>{
-    let users = [];
-    for (const email of userEmails) {
-        const user = await userRepository.findByEmail(email)
-        users.push(user);
+const shareList = async (userEmails, listId) =>{
+    let owners = [];
+
+    const emails = new Set(userEmails);
+
+    for (const email of emails) {
+        const user = await userRepository.findByEmail(email);
+        if(user){
+            owners.push(user);       
+        }
     }
-    const list = await listRepository.findById(listId);
-    //cambiar este merge de array, por un update
-    users.push(userId);
-    await listRepository.updateById(listId, {owners: users});
+    await listRepository.updateById(listId, {owners: owners});
+    
 }
 
 export default {

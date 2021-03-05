@@ -1,6 +1,69 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
 .user{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+.owners{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 13px;
+    color: #555757;
+    width: 26em;
+}
+.emailOwner{
+    width: 14em;
+}
+.doneButton{
+    background-color: rgb(46,138,230);
+    width: 7.2em;
+    height: 2.75em;
+    border-radius:1px;
+    font-size:12px;
+    color: white;
+
+}
+.deleteOwner{
+    background-color: transparent;
+    margin-left: 25px;
+    color: #d0d6d6;
+    font-size: 14px;
+}
+.deleteOwner:hover{
+    background-color: transparent;
+    margin-left: 25px;
+    color: #9ea3a3;
+    font-size: 12px;
+}
+.shareList{
+    width: 20em;
+    height: 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 10px;
+    padding: 5px;
+}
+.shareList:focus-within{
+    border: 1px solid rgb(46,138,230);
+    border-radius: 2.5px;
+}
+.shareIcon{
+    margin: 10px;
+    font-size: 12px;
+}
+.shareInput{
+    -webkit-appearance: none;
+    border: none;
+    outline:none;
 }

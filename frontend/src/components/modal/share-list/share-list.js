@@ -1,56 +1,65 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import useLists from "../../../hooks/use-lists";
 import api from '../../../helpers/api';
 import './share-list.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import useAuth from '../../../hooks/use-auth';
 
   const ShareList = ({closeModal}) => {
     const {activeId} = useLists()
-    const [emails, setEmails] = useState();
+    const {userId} = useAuth();
+
     const [owners, setOwners] = useState([]);
+    const newOwners = useRef();
 
     useEffect(() => {
       const getOwners = api.getOwners(activeId);
             getOwners.then( result => {
-              setOwners(result.map( email => convertArrayToObject(email)));
+              setOwners(result);
         })
     },[activeId]);
 
-     const convertArrayToObject = (value) => {
-        return {
-          label: value,
-          value: value,
-        }
-    };
-
-    const shareEmail = (userEmails) => {
-      const objectArray = Object.entries(userEmails);
+    const shareEmail = () => {
       let usersShare = [];
 
-      objectArray.forEach(([key, value]) => {
-        usersShare.push(value.label);
-      });
-      api.shareList(activeId, {userEmails: usersShare});
-      setOwners(userEmails);
-      closeModal();
+      if(newOwners != null){
+        const shareOwners = (newOwners.current.value.split(",")); 
+        const objectArray = Object.entries(owners);
+      
+        objectArray.forEach(([key, value]) => {
+          usersShare.push(value.email);
+        });
+
+        const totalOwners = shareOwners.concat(usersShare);
+        console.log(totalOwners);
+
+        api.shareList(activeId, {userEmails: totalOwners});
+        closeModal();
+      }else{
+        closeModal();
+      }
+      
     }
 
-    console.log(owners);
-    if(!owners?.length) return <h3>There aren't other users!</h3>;
-
     return (
-       <div>
+       <div className="container">
           {/*Lista de los owners */}
           <div>
-            <FontAwesomeIcon icon={faUserCircle} />
-            {owners.map(owner => <span>{owner.value}</span>)}
+
+            {owners?.map(owner => 
+              <div key={owner.id} className="owners">
+                <img src={owner.avatar} alt={owner.avatar}/>
+                <span className="emailOwner">{owner.id === userId ? owner.email + " (Owner)" : owner.email }</span>
+                <button className="deleteOwner"><FontAwesomeIcon icon={faTimes} /></button>
+              </div>                
+            )}
           </div>    
-         <div>
-           <FontAwesomeIcon icon={faUserPlus} />
-           <input placeholder="Enter email address"></input>
+         <div className="shareList">
+           <FontAwesomeIcon icon={faUserPlus} className="shareIcon"/>
+           <input placeholder="Enter email address" ref={newOwners} className="shareInput"></input>
          </div>
-         <button onClick={shareEmail}>done</button>
+         <button className="doneButton"onClick={shareEmail}>Done</button>
       </div>
     );
 

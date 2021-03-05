@@ -8,14 +8,12 @@
     width: 400px;
     height: 400px;
     transform: translate(-50%, -50%);
-    background-color: rgb(45,138,230);
-    border-radius: 15px;
+    background-color: white;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    -webkit-box-shadow: 2px 4px 15px 2px #000000; 
-    box-shadow: 2px 4px 15px 2px #068cc7;
     outline: none;
 }
 .Overlay {
@@ -24,17 +22,16 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(213, 232, 240, 0.75);
+    background-color: rgba(164, 169, 171, 0.75);
     
   }
   .buttonContainer{
     margin: 0px;
     padding: 0px;
-    color: white;
-    font-size: 25px;
+    color: black;
+    font-size: 18px;
     display: flex;
     align-items: center;
-    font-weight: bold;
     justify-content: space-evenly;
   }
   .button{
