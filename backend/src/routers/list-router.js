@@ -1,69 +1,72 @@
-import {Router} from 'express'
-import protect from '../middlewares/protect'
-import listService from '../services/list-service'
+import { Router } from "express";
+import protect from "../middlewares/protect";
+import listService from "../services/list-service";
+import listPermissionRouter from "../middlewares/permission-list";
 
-const router = Router()
+const router = Router();
 
-router.use(protect)
+router.use(protect);
 
-router.get('/', async (req, res) => {
-    const lists = await listService.getListsFromOwner(req.userId)
-    res.json(lists)
-})
+router.param("listId", listPermissionRouter);
 
-router.get('/:id', async (req, res) => {
-    const list = await listService.getById(req.params.id)
-    res.json(list)
-})
+router.get("/", async (req, res) => {
+  const lists = await listService.getListsFromOwner(req.userId);
+  res.json(lists);
+});
 
-router.post('/', async (req, res) => {
-    const list = await listService.create({...req.body, owner: req.userId})
-    res.status(201).json(list)
-})
+router.get("/:listId", async (req, res) => {
+  const list = await listService.getById(req.params.listId);
+  res.json(list);
+});
 
-router.delete('/:id', async (req, res) => {
-    await listService.removeById(req.params.id)
-    res.status(204).end()
-})
+router.post("/", async (req, res) => {
+  const list = await listService.create({ ...req.body, owner: req.userId });
+  res.status(201).json(list);
+});
 
-router.put('/:id', async (req, res) => {
-    const list = await listService.updateById(req.params.id, req.body)
-    res.json(list)
-})
+router.delete("/:listId", async (req, res) => {
+  await listService.removeById(req.params.id);
+  res.status(204).end();
+});
 
-router.post('/:listId/tasks', async (req, res) => {
-    const list = await listService.pushTask(req.params.listId, req.body)
-    res.status(201).json(list)
-})
+router.put("/:listId", async (req, res) => {
+  const list = await listService.updateById(req.params.id, req.body);
+  res.json(list);
+});
 
-router.put('/:listId/tasks/:taskId', async (req, res) => {
-    const listId = req.params.listId;
-    const taskId = req.params.taskId;
+router.post("/:listId/tasks", async (req, res) => {
+  const list = await listService.pushTask(req.params.listId, req.body);
+  res.status(201).json(list);
+});
 
-    const list = await listService.updateTask(listId, taskId, req.body)
+router.put("/:listId/tasks/:taskId", async (req, res) => {
+  const listId = req.params.listId;
+  const taskId = req.params.taskId;
 
-    res.status(201).json(list)
-})
+  const list = await listService.updateTask(listId, taskId, req.body);
 
-router.delete('/:listId/tasks/:taskId', async (req, res) => {
-    const listId = req.params.listId;
-    const taskId = req.params.taskId;
+  res.status(201).json(list);
+});
 
-    await listService.removeTask(listId, taskId)
+router.delete("/:listId/tasks/:taskId", async (req, res) => {
+  const listId = req.params.listId;
+  const taskId = req.params.taskId;
 
-    res.status(204).end()
-})
+  await listService.removeTask(listId, taskId);
 
-router.delete('/:listId/tasks', async (req, res) => {
-    const listId = req.params.listId;
+  res.status(204).end();
+});
 
-    const filter = {}
-    if (req.query.completed) {
-        filter.completed = req.query.completed === 'true'
-    }
+router.delete("/:listId/tasks", async (req, res) => {
+  const listId = req.params.listId;
 
-    await listService.removeAllTasks(listId, filter)
-    res.status(204).end()
-})
+  const filter = {};
+  if (req.query.completed) {
+    filter.completed = req.query.completed === "true";
+  }
 
-export default router
+  await listService.removeAllTasks(listId, filter);
+  res.status(204).end();
+});
+
+export default router;

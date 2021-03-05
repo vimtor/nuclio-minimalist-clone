@@ -1,29 +1,54 @@
+import React, { useState, useMemo } from "react";
 import profileImage from "../../images/profile-placeholder.jpg";
-import './profile-display.css'
+import useUsers from "../../hooks/use-users";
 import useAuth from "../../hooks/use-auth";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import styles from "./profile-display.module.css";
+import EditButton from "../edit-button/edit-button";
+import ProfileDisplayEdit from "./profile-display-edit/profile-display-edit";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 const ProfileDisplay = () => {
-    const history = useHistory()
-    const {logout} = useAuth()
+  const history = useHistory();
+  const { activeUser, alias, avatar, updateProfile } = useUsers();
+  const { logout } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
-    const handleLogout = () => {
-        logout()
-        history.push("/login")
-    }
-    const redirectToProfile = () => {
-        history.push("/profile")
-    }
+  const handleLogout = () => {
+    logout();
+    history.push("/login");
+  };
 
-    return (
-        <section className="profile-display-container">
-            <img className="profile-display-image" src={profileImage} alt="profile image"/>
-            <div className="profile-display-content">
-                <h3 className="profile-display-name" onClick={redirectToProfile}>Anonymous</h3>
-                <button className="profile-display-button" onClick={handleLogout}>Sign out</button>
-            </div>
-        </section>
-    )
-}
+  const handleOpenEditProfile = () => {
+    setIsOpen(true);
+  };
 
-export default ProfileDisplay
+  return (
+    <section className={styles.container}>
+      <img
+        className={styles.image}
+        src={Buffer.from(avatar || profileImage)}
+        alt="profile image"
+      />
+      <div className={styles.content}>
+        <div className={styles.right}>
+          <h3 className={styles.name}>{alias}</h3>
+          <EditButton onClick={handleOpenEditProfile} className={styles.pen} />
+        </div>
+        <button className={styles.button} onClick={handleLogout}>
+          Sign out
+        </button>
+      </div>
+      <ProfileDisplayEdit
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        userId={activeUser}
+        updateProfile={updateProfile}
+      />
+    </section>
+  );
+};
+
+export default ProfileDisplay;
