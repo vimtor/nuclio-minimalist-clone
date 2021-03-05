@@ -1,49 +1,48 @@
 .modal {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    margin-right: -50%;
-    width: 400px;
-    height: 400px;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    outline: none;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  width: 400px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  outline: none;
 }
 .Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(164, 169, 171, 0.75);
-    
-  }
-  .buttonContainer{
-    margin: 0px;
-    padding: 0px;
-    color: black;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-  .button{
-      background-color: #4bbbeb;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-  }
-  .message{
-      margin: 10px;
-  }
-  .shareContainer{
-      width: 300px;
-      height: 300px;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(164, 169, 171, 0.75);
+}
+.buttonContainer {
+  margin: 0px;
+  padding: 0px;
+  color: black;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.button {
+  background-color: #4bbbeb;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+.message {
+  margin: 10px;
+}
+.shareContainer {
+  width: 300px;
+  height: 300px;
+}
