@@ -79,4 +79,6 @@ export default {
   updateTask,
   removeTask,
   removeAllTasks,
+  getListOwners,
+  shareList,
 };
