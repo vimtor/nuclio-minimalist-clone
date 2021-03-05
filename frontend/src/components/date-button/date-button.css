@@ -1,9 +1,21 @@
 @import "~react-datepicker/dist/react-datepicker.css";
 
+.react-datepicker-wrapper {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  max-width: 100px;
+}
+
+.react-datepicker__input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
 
 .react-datepicker__close-icon {
-  padding: 0.25em 0.25em;
   margin: 0;
+  padding: 0px 0px 0px 75px;
 }
 
 .react-datepicker__close-icon::after {
@@ -13,6 +25,6 @@
 .expired {
   position: relative;
   color: red;
-  padding: 1em;
+  padding: 0px 0px 0px 20px;
   font-style: italic;
 }
