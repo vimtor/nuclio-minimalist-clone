@@ -28,7 +28,7 @@ const ProfileDisplay = () => {
 
   return (
     <section className={styles.container}>
-      <ProfileImage avatar={avatar} className={styles.image}/>
+      <ProfileImage avatar={avatar} className={styles.image} />
       <div className={styles.content}>
         <div className={styles.right}>
           <h3 className={styles.name}>{alias}</h3>
