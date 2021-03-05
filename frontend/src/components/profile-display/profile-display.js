@@ -1,5 +1,4 @@
-import React, { useState, useMemo } from "react";
-import profileImage from "../../images/profile-placeholder.jpg";
+import React, { useState } from "react";
 import useUsers from "../../hooks/use-users";
 import useAuth from "../../hooks/use-auth";
 import { useHistory } from "react-router-dom";
