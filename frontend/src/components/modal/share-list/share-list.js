@@ -26,7 +26,7 @@ const ShareList = ({ closeModal }) => {
       const shareOwners = newOwners.current.value.split(",");
       const objectArray = Object.entries(owners);
 
-      objectArray.forEach(([key, value]) => {
+      objectArray.forEach(([value]) => {
         usersShare.push(value.email);
       });
       const totalOwners = shareOwners.concat(usersShare);
