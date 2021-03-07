@@ -92,9 +92,9 @@ const getChartTasks = async () => {
   return data;
 };
 const getUser = async (userId) => {
-  const user = await api.get("/users/"+userId)
+  const user = await api.get("/users/" + userId);
   return user.data;
-}
+};
 
 export default {
   fetchLists,
@@ -111,5 +111,5 @@ export default {
   removeTask,
   removeManyTasks,
   getChartTasks,
-  getUser
+  getUser,
 };
