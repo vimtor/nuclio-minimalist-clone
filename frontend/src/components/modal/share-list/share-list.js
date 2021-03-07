@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import useLists from "../../../hooks/use-lists";
 import api from "../../../helpers/api";
-import "./share-list.css";
+import styles from "./share-list.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import useAuth from "../../../hooks/use-auth";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import ProfileImage from "../../profile-image/profile-image";
 
 const ShareList = ({ closeModal }) => {
   const { activeId } = useLists();
-  const { userId } = useAuth();
 
   const [owners, setOwners] = useState([]);
   const newOwners = useRef();
@@ -30,10 +29,7 @@ const ShareList = ({ closeModal }) => {
       objectArray.forEach(([key, value]) => {
         usersShare.push(value.email);
       });
-
       const totalOwners = shareOwners.concat(usersShare);
-      console.log(totalOwners);
-
       api.shareList(activeId, { userEmails: totalOwners });
       closeModal();
     } else {
@@ -42,30 +38,24 @@ const ShareList = ({ closeModal }) => {
   };
 
   return (
-    <div className="container">
-      {/*Lista de los owners */}
+    <div className={styles.container}>
       <div>
         {owners?.map((owner) => (
-          <div key={owner.id} className="owners">
-            <img src={owner.avatar} alt={owner.avatar} />
-            <span className="emailOwner">
-              {owner.id === userId ? owner.email + " (Owner)" : owner.email}
-            </span>
-            <button className="deleteOwner">
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
+          <div key={owner.id} className={styles.owners}>
+            <ProfileImage avatar={owner.avatar} className={styles.avatar} />
+            <span className={styles.emailOwner}>{owner.email}</span>
           </div>
         ))}
       </div>
-      <div className="shareList">
-        <FontAwesomeIcon icon={faUserPlus} className="shareIcon" />
+      <div className={styles.shareList}>
+        <FontAwesomeIcon icon={faUserPlus} className={styles.shareIcon} />
         <input
           placeholder="Enter email address"
           ref={newOwners}
-          className="shareInput"
+          className={styles.shareInput}
         ></input>
       </div>
-      <button className="doneButton" onClick={shareEmail}>
+      <button className={styles.doneButton} onClick={shareEmail}>
         Done
       </button>
     </div>

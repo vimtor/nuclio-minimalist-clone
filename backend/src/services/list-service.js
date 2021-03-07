@@ -38,34 +38,32 @@ const updateTask = listRepository.updateTask;
 const removeTask = listRepository.removeTask;
 
 const removeAllTasks = listRepository.removeAllTasks;
+
 const getListOwners = async (listId) => {
-  let ownersInfo = [];
   const list = await listRepository.findById(listId);
-  const ownersId = list.owners;
+  const ownerIds = list.owners;
 
-  await Promise.all(
-    ownersId.map(async (id) => {
-      const response = userRepository.findById(id);
-      const user = await response;
-      ownersInfo.push({ id: id, email: user.email });
-    })
-  );
+  const promises = ownerIds.map(async (id) => {
+    const user = await userRepository.findById(id);
+    return { id: id, email: user.email, avatar: user.avatar };
+  });
 
-  return ownersInfo;
+  return Promise.all(promises);
 };
 
 const shareList = async (userEmails, listId) => {
-  let owners = [];
+  const emails = [...new Set(userEmails)];
 
-  const emails = new Set(userEmails);
+  const owners = await userRepository.findAllByEmails(emails);
 
-  for (const email of emails) {
-    const user = await userRepository.findByEmail(email);
-    if (user) {
-      owners.push(user);
-    }
-  }
-  await listRepository.updateById(listId, { owners: owners });
+  const promises = owners.map(async (user) => {
+    await userRepository.updateById(user._id, {
+      lists: [...user.lists, listId],
+    });
+  });
+
+  await listRepository.updateById(listId, { owners });
+  await Promise.all(promises);
 };
 
 export default {
