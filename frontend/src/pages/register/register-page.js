@@ -28,11 +28,8 @@ const RegisterPage = () => {
       try {
         await register({ email, password });
         history.push("/lists");
-        console.log(`In try ${loading}`);
       } catch (error) {
-        console.log(`In catch ${loading}`);
-        //TODO how to display error message send from backend?
-        setError("This email is currently in use, please try another!");
+        setError(error.message);
       }
     }
   };
@@ -71,7 +68,7 @@ const RegisterPage = () => {
               name="confirm-password"
             />
             <div className={styles.buttonContainer}>
-              <button type="submit">
+              <button type="submit" disabled={loading}>
                 Register
               </button>
               <div className={styles.loginContainer}>

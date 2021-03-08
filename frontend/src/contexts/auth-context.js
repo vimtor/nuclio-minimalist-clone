@@ -42,11 +42,6 @@ const reducer = (state, action) => {
                 logged: false,
                 userId: null,
             };
-        case "init":
-            return {
-                ...state,
-                loading: false,
-            }
     }
 };
 
@@ -55,28 +50,26 @@ const AuthProvider = ({children}) => {
 
     const register = async ({email, password}) => {
         dispatch({type: "loading"});
-        const token = await api.register({email, password});
-        if (token) {    //TODO Review this code
-            console.log(`After api.register ${JSON.stringify(initialState.loading)}`);
-            dispatch({type: "login", token});
-            console.log(`After dispatch ${JSON.stringify(initialState)}`);
-            localStorage.setItem("token", token);
-        } else
-        {
-            dispatch({type: "init"})
-        }
+        await api.register({email, password})
+            .then((token) => {
+                dispatch({type: "login", token});
+                localStorage.setItem("token", token);
+            }).catch((e) => {
+                dispatch({type: "logout"})
+                Promise.reject(e);
+            })
     };
 
     const login = async ({email, password}) => {
         dispatch({type: "loading"});
-        const token = await api.login({email, password});
-        if (token) {
-            dispatch({type: "login", token});
-            localStorage.setItem("token", token);
-        } else
-        {
-            dispatch({type: "init"})
-        }
+        await api.login({email, password})
+            .then((token) => {
+                dispatch({type: "login", token});
+                localStorage.setItem("token", token);
+            }).catch((e) => {
+                dispatch({type: "logout"})
+                Promise.reject(e);
+            })
     };
 
     const logout = () => {
