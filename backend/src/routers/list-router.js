@@ -68,5 +68,20 @@ router.delete("/:listId/tasks", async (req, res) => {
   await listService.removeAllTasks(listId, filter);
   res.status(204).end();
 });
+// Endpoint para compartir
+router.put("/:listId/share", async (req, res) => {
+  const listId = req.params.listId;
+  const userEmails = req.body.userEmails;
+
+  await listService.shareList(userEmails, listId);
+
+  res.status(200).end();
+});
+
+// Enpoint para los owners menos el logged
+router.get("/:listId/owners", async (req, res) => {
+  const allOwners = await listService.getListOwners(req.params.listId);
+  res.json(allOwners);
+});
 
 export default router;

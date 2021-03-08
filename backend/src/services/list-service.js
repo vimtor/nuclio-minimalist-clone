@@ -39,6 +39,33 @@ const removeTask = listRepository.removeTask;
 
 const removeAllTasks = listRepository.removeAllTasks;
 
+const getListOwners = async (listId) => {
+  const list = await listRepository.findById(listId);
+  const ownerIds = list.owners;
+
+  const promises = ownerIds.map(async (id) => {
+    const user = await userRepository.findById(id);
+    return { id: id, email: user.email, avatar: user.avatar };
+  });
+
+  return Promise.all(promises);
+};
+
+const shareList = async (userEmails, listId) => {
+  const emails = [...new Set(userEmails)];
+
+  const owners = await userRepository.findAllByEmails(emails);
+
+  const promises = owners.map(async (user) => {
+    await userRepository.updateById(user._id, {
+      lists: [...user.lists, listId],
+    });
+  });
+
+  await listRepository.updateById(listId, { owners });
+  await Promise.all(promises);
+};
+
 export default {
   getListsFromOwner,
   getListFromOwner,
@@ -50,4 +77,6 @@ export default {
   updateTask,
   removeTask,
   removeAllTasks,
+  getListOwners,
+  shareList,
 };
