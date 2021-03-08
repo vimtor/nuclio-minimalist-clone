@@ -12,6 +12,7 @@
   background: none;
   border: none;
   color: black;
+  width: 12em;
 }
 
 .footer > button:hover {
