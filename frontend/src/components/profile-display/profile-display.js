@@ -7,7 +7,7 @@ import EditButton from "../edit-button/edit-button";
 import ProfileDisplayEdit from "./profile-display-edit/profile-display-edit";
 import Modal from "react-modal";
 import ProfileImage from "../profile-image/profile-image";
-import api from '../../helpers/api';
+import api from "../../helpers/api";
 
 Modal.setAppElement("#root");
 
@@ -19,11 +19,11 @@ const ProfileDisplay = () => {
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-      const userInfo = api.getUser(userId);
-          userInfo.then((result) => {
-          setEmail(result.email.split("@"))
-        });
-  },[userId]);
+    const userInfo = api.getUser(userId);
+    userInfo.then((result) => {
+      setEmail(result.email.split("@"));
+    });
+  }, [userId]);
 
   const handleLogout = () => {
     logout();
@@ -33,7 +33,6 @@ const ProfileDisplay = () => {
     setIsOpen(true);
   };
 
-  console.log(email);
   return (
     <section className={styles.container}>
       <ProfileImage avatar={avatar} className={styles.image} />
