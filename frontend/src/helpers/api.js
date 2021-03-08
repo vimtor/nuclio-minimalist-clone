@@ -91,9 +91,19 @@ const getChartTasks = async () => {
   const { data } = await api.get("/charts");
   return data;
 };
+
 const getUser = async (userId) => {
   const user = await api.get("/users/" + userId);
   return user.data;
+};
+
+const getOwners = async (listId) => {
+  const users = await api.get(`/lists/${listId}/owners`);
+  return users.data;
+};
+
+const shareList = async (listId, body) => {
+  await api.put(`/lists/${listId}/share`, body);
 };
 
 export default {
@@ -112,4 +122,6 @@ export default {
   removeManyTasks,
   getChartTasks,
   getUser,
+  shareList,
+  getOwners,
 };

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Minimalist todo app clone for Nuclio Digital School",
   "scripts": {
+    "bootstrap": "npm install && cd frontend && npm install && cd .. && cd backend && npm install",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
