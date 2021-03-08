@@ -20,8 +20,10 @@ const ListsProvider = ({ children }) => {
   useEffect(() => {
     api.fetchLists().then((data) => {
       setLoading(false);
-      setLists(data);
-      setActiveList(data[0]._id);
+      if (data) {
+        setLists(data);
+        setActiveList(data[0]._id);
+      }
     });
   }, []);
 
@@ -33,8 +35,13 @@ const ListsProvider = ({ children }) => {
   const removeList = async (id) => {
     await api.removeList(id);
     const newLists = lists.filter(({ _id }) => _id !== id);
+
     setLists(newLists);
-    setActiveList(newLists[0]._id);
+    if (newLists.length > 0) {
+      setActiveList(newLists[0]._id);
+    } else {
+      setActiveList(null);
+    }
   };
 
   const updateList = async (id, body) => {
@@ -58,6 +65,7 @@ const ListsProvider = ({ children }) => {
         loading,
         lists,
         activeId,
+        setLists,
         setActiveList,
         createList,
         removeList,

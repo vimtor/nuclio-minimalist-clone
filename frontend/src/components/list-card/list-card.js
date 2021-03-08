@@ -4,15 +4,17 @@ import styles from "./list-card.module.css";
 import TaskList from "./task-list/task-list";
 import CardHeader from "./card-header/card-header";
 import CardFooter from "./card-footer/card-footer";
+import useLists from "../../hooks/use-lists";
 
 const ListCard = () => {
+  const { lists } = useLists();
   const { loading, createTask } = useActiveList();
 
   if (loading) {
     return null;
   }
 
-  return (
+  return lists.length > 0 ? (
     <div className={styles.card}>
       <CardHeader />
       <input
@@ -28,6 +30,10 @@ const ListCard = () => {
       />
       <TaskList />
       <CardFooter />
+    </div>
+  ) : (
+    <div className={styles.noLists}>
+      <span>There are not lists!</span>
     </div>
   );
 };
