@@ -13,9 +13,8 @@
   border: none;
   cursor: pointer;
   color: gray;
-  margin-left: -3.25em;
   margin-bottom: 2em;
-  width: 100%;
+  width: 8em;
 }
 
 .button:focus,
