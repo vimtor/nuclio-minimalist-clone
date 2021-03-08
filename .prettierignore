@@ -1,3 +1,7 @@
 node_modules
 .idea
 .vscode
+frontend/package-lock.json
+package-lock.json
+frontend/package.json
+frontend/public/*

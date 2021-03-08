@@ -15,7 +15,7 @@
 
 .react-datepicker__close-icon {
   margin: 0;
-  padding: 0px 0px 0px 75px;
+  padding: 0 0 0 75px;
 }
 
 .react-datepicker__close-icon::after {
@@ -25,6 +25,6 @@
 .expired {
   position: relative;
   color: red;
-  padding: 0px 0px 0px 20px;
+  padding: 0 0 0 20px;
   font-style: italic;
 }
