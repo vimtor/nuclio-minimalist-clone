@@ -31,6 +31,7 @@
   font-weight: var(--font-weight-light);
   margin-top: 0.3em;
 }
+
 .right {
   display: flex;
   justify-content: flex-end;
@@ -46,7 +47,7 @@
   cursor: pointer;
 }
 
-
-.name:hover, .button:hover {
+.name:hover,
+.button:hover {
   text-shadow: -2px 0 #2577c4, 0 2px #2577c4, 2px 0 #2577c4, 0 -2px #2577c4;
 }
