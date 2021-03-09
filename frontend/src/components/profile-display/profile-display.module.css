@@ -44,3 +44,8 @@
   fill: white;
   cursor: pointer;
 }
+
+
+.name:hover, .button:hover {
+  text-shadow: -2px 0 #2577c4, 0 2px #2577c4, 2px 0 #2577c4, 0 -2px #2577c4;
+}
