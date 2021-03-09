@@ -33,12 +33,18 @@ const ProfileDisplay = () => {
     setIsOpen(true);
   };
 
+  const redirectToProfile = () => {
+    history.push("/profile");
+  };
+
   return (
     <section className={styles.container}>
       <ProfileImage avatar={avatar} className={styles.image} />
       <div className={styles.content}>
         <div className={styles.right}>
-          <h3 className={styles.name}>{alias ? alias : email[0]}</h3>
+          <h3 className={styles.name} onClick={redirectToProfile}>
+            {alias ? alias : email[0]}
+          </h3>
           <EditButton onClick={handleOpenEditProfile} className={styles.pen} />
         </div>
         <button className={styles.button} onClick={handleLogout}>
