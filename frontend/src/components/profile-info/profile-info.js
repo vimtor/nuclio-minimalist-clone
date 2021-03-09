@@ -10,13 +10,10 @@ const ProfileInfo = () => {
   const [email, setEmail] = useState("");
   const { userId } = useAuth();
 
-  console.log(avatar);
-
   useEffect(() => {
     const userInfo = api.getUser(userId);
     userInfo.then((result) => {
       setEmail(result.email.split("@"));
-      console.log(avatar);
     });
   }, [userId]);
 
