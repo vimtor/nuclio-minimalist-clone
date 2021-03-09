@@ -40,7 +40,9 @@ const removeList = async (id) => {
 };
 
 const updateList = async (id, body = {}) => {
+  console.log(body);
   const { data } = await api.put(`/lists/${id}`, body);
+  console.log(data);
   return data;
 };
 

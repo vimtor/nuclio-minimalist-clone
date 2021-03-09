@@ -55,7 +55,7 @@ const TaskList = () => {
                         />
                         {title}
                       </div>
-                      <div clasName={styles.right}>
+                      <div className={styles.right}>
                         <DateButton
                           date={dueDate}
                           updateDueDate={(date) => updateDueDateTask(_id, date)}
