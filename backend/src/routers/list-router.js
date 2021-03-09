@@ -29,10 +29,8 @@ router.delete("/:listId", async (req, res) => {
   res.status(204).end();
 });
 
-router.put("/:listId", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const list = await listService.updateById(req.params.id, req.body);
-  console.log(list);
-
   res.json(list);
 });
 
