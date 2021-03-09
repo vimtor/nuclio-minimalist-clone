@@ -5,8 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import CompletedTasksChart from "../../components/completed-tasks-chart/completed-tasks-chart";
 import ChartProvider from "../../contexts/chart-context";
+import useUsers from "../../hooks/use-users";
+import api from "../../helpers/api";
+import { useEffect, useState } from "react/cjs/react.production.min";
+import useAuth from "../../hooks/use-auth";
+import ProfileImage from "../../components/profile-image/profile-image";
+import ProfileInfo from "../../components/profile-info/profile-info";
+import ProfileDisplay from "../../components/profile-display/profile-display";
+import UserProvider from "../../contexts/users-context";
 
 const ProfilePage = () => {
+  const { activeUser, alias, avatar } = useUsers();
+
   return (
     <main className={styles.container}>
       <Sidebar />
@@ -15,23 +25,9 @@ const ProfilePage = () => {
           <h2>Profile</h2>
           <div className={styles.profileConent}>
             <div className={styles.userInfo}>
-              <img
-                className="profile-display-image"
-                src={profileImage}
-                alt="profile image"
-              />
-
-              <ul className={styles.inputBox}>
-                {/*<label>Name: </label>*/}
-                {/*<input tyle="text" value="Paco" />*/}
-                <li>Paco</li>
-                <li>Email@email.com</li>
-                <li>
-                  <button>
-                    <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon> Edit
-                  </button>
-                </li>
-              </ul>
+              <UserProvider>
+                <ProfileInfo />
+              </UserProvider>
             </div>
 
             <div className={styles.moreInfo}>
