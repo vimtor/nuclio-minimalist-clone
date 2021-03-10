@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import profileImage from "../../images/profile-placeholder.jpg";
 import useUsers from "../../hooks/use-users";
 import useAuth from "../../hooks/use-auth";
 import { useHistory } from "react-router-dom";
@@ -33,12 +34,18 @@ const ProfileDisplay = () => {
     setIsOpen(true);
   };
 
+  const redirectToProfile = () => {
+    history.push("/profile");
+  };
+
   return (
     <section className={styles.container}>
       <ProfileImage avatar={avatar} className={styles.image} />
       <div className={styles.content}>
         <div className={styles.right}>
-          <h3 className={styles.name}>{alias ? alias : email[0]}</h3>
+          <h3 className={styles.name} onClick={redirectToProfile}>
+            {alias ? alias : email[0]}
+          </h3>
           <EditButton onClick={handleOpenEditProfile} className={styles.pen} />
         </div>
         <button className={styles.button} onClick={handleLogout}>
