@@ -58,7 +58,7 @@ const shareList = async (userEmails, listId) => {
 
   const promises = owners.map(async (user) => {
     await userRepository.updateById(user._id, {
-      lists: [...user.lists, listId],
+      $addToSet: { lists: listId },
     });
   });
 

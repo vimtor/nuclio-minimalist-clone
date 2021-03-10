@@ -24,12 +24,12 @@ const ShareList = ({ closeModal }) => {
 
     if (newOwners != null) {
       const shareOwners = newOwners.current.value.split(",");
-      const objectArray = Object.entries(owners);
 
-      objectArray.forEach(([value]) => {
-        usersShare.push(value.email);
+      owners.forEach((owner) => {
+        usersShare.push(owner.email);
       });
       const totalOwners = shareOwners.concat(usersShare);
+
       api.shareList(activeId, { userEmails: totalOwners });
       closeModal();
     } else {
