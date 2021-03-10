@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import profileImage from "../../images/profile-placeholder.jpg";
 import useUsers from "../../hooks/use-users";
 import useAuth from "../../hooks/use-auth";
