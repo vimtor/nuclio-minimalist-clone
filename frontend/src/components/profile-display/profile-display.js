@@ -7,34 +7,39 @@ import styles from "./profile-display.module.css";
 import EditButton from "../edit-button/edit-button";
 import ProfileDisplayEdit from "./profile-display-edit/profile-display-edit";
 import Modal from "react-modal";
+import ProfileImage from "../profile-image/profile-image";
+import api from "../../helpers/api";
 
 Modal.setAppElement("#root");
 
 const ProfileDisplay = () => {
   const history = useHistory();
   const { activeUser, alias, avatar, updateProfile } = useUsers();
-  const { logout } = useAuth();
+  const { logout, userId } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const userInfo = api.getUser(userId);
+    userInfo.then((result) => {
+      setEmail(result.email.split("@"));
+    });
+  }, [userId]);
 
   const handleLogout = () => {
     logout();
     history.push("/login");
   };
-
   const handleOpenEditProfile = () => {
     setIsOpen(true);
   };
 
   return (
     <section className={styles.container}>
-      <img
-        className={styles.image}
-        src={Buffer.from(avatar || profileImage)}
-        alt="profile image"
-      />
+      <ProfileImage avatar={avatar} className={styles.image} />
       <div className={styles.content}>
         <div className={styles.right}>
-          <h3 className={styles.name}>{alias}</h3>
+          <h3 className={styles.name}>{alias ? alias : email[0]}</h3>
           <EditButton onClick={handleOpenEditProfile} className={styles.pen} />
         </div>
         <button className={styles.button} onClick={handleLogout}>
