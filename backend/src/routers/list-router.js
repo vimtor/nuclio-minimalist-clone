@@ -25,12 +25,12 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:listId", async (req, res) => {
-  await listService.removeById(req.params.id);
+  await listService.removeById(req.params.listId);
   res.status(204).end();
 });
 
-router.put("/:id", async (req, res) => {
-  const list = await listService.updateById(req.params.id, req.body);
+router.put("/:listId", async (req, res) => {
+  const list = await listService.updateById(req.params.listId, req.body);
   res.json(list);
 });
 
