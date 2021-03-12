@@ -42,8 +42,9 @@ router.post("/:listId/tasks", async (req, res) => {
 router.put("/:listId/tasks/:taskId", async (req, res) => {
   const listId = req.params.listId;
   const taskId = req.params.taskId;
+  const userId = req.userId;
 
-  const list = await listService.updateTask(listId, taskId, req.body);
+  const list = await listService.updateTask(listId, taskId, req.body, userId);
 
   res.status(201).json(list);
 });
