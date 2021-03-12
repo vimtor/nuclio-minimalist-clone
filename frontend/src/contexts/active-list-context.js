@@ -22,6 +22,7 @@ const ActiveListProvider = ({ children }) => {
 
   const refreshList = async () => {
     api.fetchOneList(activeId).then(setActiveList);
+    window.history.pushState("", "", `/lists/${activeList}`);
   };
 
   useEffect(() => {
