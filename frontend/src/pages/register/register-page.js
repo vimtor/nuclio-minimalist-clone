@@ -29,7 +29,7 @@ const RegisterPage = () => {
         await register({ email, password });
         history.push("/lists");
       } catch (error) {
-        setError("This email is currently in use, please try another!");
+        setError(error.message);
       }
     }
   };
