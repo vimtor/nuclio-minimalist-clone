@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useActiveList from "../../hooks/use-active-list";
 import styles from "./list-card.module.css";
 import TaskList from "./task-list/task-list";
@@ -8,11 +8,14 @@ import useLists from "../../hooks/use-lists";
 
 const ListCard = () => {
   const { lists } = useLists();
-  const { loading, createTask } = useActiveList();
+  const { loading, _id, createTask } = useActiveList();
 
   if (loading) {
     return null;
   }
+  useEffect(() => {
+    window.history.pushState("", "", `/lists/${_id}`);
+  }, [_id]);
 
   return lists.length > 0 ? (
     <div className={styles.card}>
