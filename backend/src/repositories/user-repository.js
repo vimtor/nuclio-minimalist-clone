@@ -39,6 +39,10 @@ const findByEmail = async (email) => {
   return userModel.findOne({ email });
 };
 
+const findAllByEmails = async (emails) => {
+  return userModel.find({ email: { $in: emails } });
+};
+
 const findById = async (id) => {
   return userModel.findById(id).populate("lists", "title");
 };
@@ -55,4 +59,5 @@ export default {
   findByEmail,
   findById,
   addListToUser,
+  findAllByEmails,
 };

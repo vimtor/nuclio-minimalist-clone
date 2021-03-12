@@ -7,6 +7,7 @@ export const taskSchema = new Schema({
   completed_date: Date,
   created_date: Date,
   dueDate: Date,
+  completed_by: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const listSchema = new Schema({
@@ -44,11 +45,14 @@ const addTask = async (id, task) => {
   return listModel.findById(id);
 };
 
-const updateTask = async (listId, taskId, newTask) => {
+const updateTask = async (listId, taskId, newTask, userId) => {
   const filter = { _id: listId, "tasks._id": taskId };
   const update = { $set: {} };
   Object.entries(newTask).forEach(([field, value]) => {
     update["$set"][`tasks.$.${field}`] = value;
+    if (field === "completed") {
+      update["$set"][`tasks.$.completed_by`] = userId;
+    }
   });
 
   await listModel.updateOne(filter, update);
@@ -65,44 +69,8 @@ const removeAllTasks = async (listId, filter) => {
   return listModel.updateMany({ _id: listId }, { $pull: { tasks: filter } });
 };
 
-const getAllTasks = async (user_id) => {
-  let response = {};
-  let a = 1;
-  console.log(a);
-  await listModel.find({ owners: { $in: [user_id] } }).then((lists) => {
-    lists.map((list) => {
-      list.tasks.map((task) => {
-        //Create object of dates with number of completed tasks
-        if (task.completed_date !== undefined) {
-          const completed_date = task.completed_date.toLocaleDateString(
-            "es-ES"
-          );
-          // if response[completed_date] exist, this object have completed and created elements, then we sum 1
-          if (response[completed_date] !== undefined) {
-            response[completed_date].completed =
-              response[completed_date].completed + 1;
-          } else {
-            response[completed_date] = {
-              completed: 1,
-              created: 0,
-            };
-          }
-        }
-
-        //Create object of dates with number of created tasks
-        const created_date = task.created_date.toLocaleDateString("es-ES");
-        if (response[created_date] !== undefined) {
-          response[created_date].created = response[created_date].created + 1;
-        } else {
-          response[created_date] = {
-            completed: 0,
-            created: 1,
-          };
-        }
-      });
-    });
-  });
-  return response;
+const getAllOwnerTasks = async (userId) => {
+  return listModel.find({ owners: { $in: [userId] } });
 };
 
 export default {
@@ -114,5 +82,5 @@ export default {
   updateTask,
   removeTask,
   removeAllTasks,
-  getAllTasks,
+  getAllOwnerTasks,
 };

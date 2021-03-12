@@ -47,16 +47,30 @@ const AuthProvider = ({ children }) => {
 
   const register = async ({ email, password }) => {
     dispatch({ type: "loading" });
-    const token = await api.register({ email, password });
-    dispatch({ type: "login", token });
-    localStorage.setItem("token", token);
+    await api
+      .register({ email, password })
+      .then((token) => {
+        dispatch({ type: "login", token });
+        localStorage.setItem("token", token);
+      })
+      .catch((e) => {
+        dispatch({ type: "logout" });
+        Promise.reject(e);
+      });
   };
 
   const login = async ({ email, password }) => {
     dispatch({ type: "loading" });
-    const token = await api.login({ email, password });
-    dispatch({ type: "login", token });
-    localStorage.setItem("token", token);
+    await api
+      .login({ email, password })
+      .then((token) => {
+        dispatch({ type: "login", token });
+        localStorage.setItem("token", token);
+      })
+      .catch((e) => {
+        dispatch({ type: "logout" });
+        Promise.reject(e);
+      });
   };
 
   const logout = () => {
